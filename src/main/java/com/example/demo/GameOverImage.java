@@ -8,7 +8,7 @@ public class GameOverImage extends ImageView {
 	private static final String IMAGE_NAME = "/com/example/demo/images/gameover.png";
 
 	public GameOverImage(double xPosition, double yPosition) {
-		setImage(new Image(getClass().getResource(IMAGE_NAME).toExternalForm()) );
+		setImage(new Image(String.valueOf(getClass().getResource(IMAGE_NAME))) );
 //		setImage(ImageSetUp.getImageList().get(ImageSetUp.getGameOver()));
 		setLayoutX(xPosition);
 		setLayoutY(yPosition);
