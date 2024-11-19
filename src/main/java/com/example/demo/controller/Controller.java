@@ -48,6 +48,10 @@ public class Controller implements Observer {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setContentText(e.getClass().toString());
 			alert.show();
+
+			Throwable exec = e.getCause();
+			exec.printStackTrace();
+			System.exit(0);
 		}
 	}
 
