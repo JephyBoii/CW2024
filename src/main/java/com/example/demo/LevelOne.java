@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.time.Duration;
+
 public class LevelOne extends LevelParent {
 	
 	private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background1.jpg";
@@ -20,7 +22,7 @@ public class LevelOne extends LevelParent {
 		}
 		else if (userHasReachedKillTarget())
 			goToNextLevel(NEXT_LEVEL);
-	}
+    }
 
 	@Override
 	protected void initializeFriendlyUnits() {

@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.time.Duration;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -43,6 +44,7 @@ public class Controller implements Observer {
 	public void update(Observable arg0, Object arg1) {
 		try {
 			goToLevel((String) arg1);
+			Thread.sleep(Duration.ofMillis(5));
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
 				| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -52,7 +54,9 @@ public class Controller implements Observer {
 			Throwable exec = e.getCause();
 			exec.printStackTrace();
 			System.exit(0);
-		}
-	}
+		} catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
