@@ -100,23 +100,31 @@ public abstract class LevelParent extends Observable {
 	}
 
 	private void initializeBackground() {
+		final boolean[] movingUp = {false};
+		final boolean[] movingDown = {false};
+		final boolean[] movingLeft = {false};
+		final boolean[] movingRight = {false};
+
 		background.setFocusTraversable(true);
 		background.setFitHeight(screenHeight);
 		background.setFitWidth(screenWidth);
 		background.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent e) {
 				KeyCode kc = e.getCode();
-				if (kc == KeyCode.UP) user.moveUp();
-				if (kc == KeyCode.DOWN) user.moveDown();
-				if (kc == KeyCode.LEFT) user.moveLeft();
-				if (kc == KeyCode.RIGHT) user.moveRight();
+				if (kc == KeyCode.UP) {user.moveUp(); movingUp[0] = true;}
+				if (kc == KeyCode.DOWN) {user.moveDown(); movingDown[0] = true;}
+				if (kc == KeyCode.LEFT) {user.moveLeft(); movingLeft[0] = true;}
+				if (kc == KeyCode.RIGHT) {user.moveRight(); movingRight[0] = true;}
 				if (kc == KeyCode.SPACE) fireProjectile();
 			}
 		});
 		background.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent e) {
 				KeyCode kc = e.getCode();
-				if (kc == KeyCode.UP || kc == KeyCode.DOWN || kc == KeyCode.LEFT || kc == KeyCode.RIGHT) user.stop();
+				if (kc == KeyCode.UP) {movingUp[0] = false; if (!movingDown[0]) user.stopY();}
+				if (kc == KeyCode.DOWN) {movingDown[0] = false; if (!movingUp[0]) user.stopY();}
+				if (kc == KeyCode.LEFT) {movingLeft[0] = false; if (!movingRight[0]) user.stopX();}
+				if (kc == KeyCode.RIGHT) {movingRight[0] = false; if (!movingLeft[0]) user.stopX();}
 			}
 		});
 		root.getChildren().add(background);

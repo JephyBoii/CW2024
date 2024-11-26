@@ -62,10 +62,9 @@ public class UserPlane extends FighterPlane {
 
 	public void moveRight() { HORIZONTAL_VELOCITY = 8; }
 
-	public void stop() {
-		VERTICAL_VELOCITY = 0;
-		HORIZONTAL_VELOCITY = 0;
-	}
+	public void stopY() { VERTICAL_VELOCITY = 0;}
+
+	public void stopX() { HORIZONTAL_VELOCITY = 0; }
 
 	public int getNumberOfKills() {
 		return numberOfKills;
