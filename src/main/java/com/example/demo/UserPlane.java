@@ -12,14 +12,12 @@ public class UserPlane extends FighterPlane {
 	private static final int IMAGE_HEIGHT = 150;
 	private int VERTICAL_VELOCITY = 0;
 	private int HORIZONTAL_VELOCITY = 0;
-	private static final int PROJECTILE_X_POSITION = 110;
+	private static final int PROJECTILE_X_POSITION_OFFSET = 0;
 	private static final int PROJECTILE_Y_POSITION_OFFSET = 20;
-	//private int velocityMultiplier;
 	private int numberOfKills;
 
 	public UserPlane(int initialHealth) {
 		super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, initialHealth);
-		//velocityMultiplier = 0;
 	}
 	
 	@Override
@@ -47,7 +45,7 @@ public class UserPlane extends FighterPlane {
 	
 	@Override
 	public ActiveActorDestructible fireProjectile() {
-		return new UserProjectile(PROJECTILE_X_POSITION, getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET));
+		return new UserProjectile(getProjectileXPosition(PROJECTILE_X_POSITION_OFFSET), getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET));
 	}
 
 	private boolean isMoving() {
