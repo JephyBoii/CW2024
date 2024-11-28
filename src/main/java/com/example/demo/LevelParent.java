@@ -11,7 +11,11 @@ import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.util.Duration;
 
-public abstract class LevelParent extends Observable {
+public abstract class LevelParent{
+
+	public interface Listener {
+		void fetch(String Data);
+	}
 
 	private static final double SCREEN_HEIGHT_ADJUSTMENT = 150;
 	private static final int MILLISECOND_DELAY = 50;
@@ -32,6 +36,7 @@ public abstract class LevelParent extends Observable {
 	
 	private int currentNumberOfEnemies;
 	private LevelView levelView;
+	private Listener listener;
 
 	public LevelParent(String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
 		this.root = new Group();
@@ -61,6 +66,10 @@ public abstract class LevelParent extends Observable {
 
 	protected abstract LevelView instantiateLevelView();
 
+	public void setListener(Listener listener) {
+		this.listener = listener;
+	}
+
 	public Scene initializeScene() {
 		initializeBackground();
 		initializeFriendlyUnits();
@@ -74,8 +83,7 @@ public abstract class LevelParent extends Observable {
 	}
 
 	public void goToNextLevel(String levelName) {
-		setChanged();
-		notifyObservers(levelName);
+		listener.fetch(levelName);
 	}
 
 	private void updateScene() {
