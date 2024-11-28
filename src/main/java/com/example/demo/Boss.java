@@ -18,7 +18,7 @@ public class Boss extends FighterPlane {
 	private static final int MAX_FRAMES_WITH_SAME_MOVE = 10;
 	private static final int Y_POSITION_UPPER_BOUND = -100;
 	private static final int Y_POSITION_LOWER_BOUND = 475;
-	private static final int MAX_FRAMES_WITH_SHIELD = 500;
+	private static final int MAX_FRAMES_WITH_SHIELD = 100;
 	private final List<Integer> movePattern;
 	private boolean isShielded;
 	private int consecutiveMovesInSameDirection;
@@ -105,16 +105,20 @@ public class Boss extends FighterPlane {
 	}
 
 	private boolean shieldExhausted() {
-		return framesWithShieldActivated == MAX_FRAMES_WITH_SHIELD;
+		return framesWithShieldActivated >= MAX_FRAMES_WITH_SHIELD;
 	}
 
-	private void activateShield() {
+	protected void activateShield() {
 		isShielded = true;
 	}
 
-	private void deactivateShield() {
+	protected void deactivateShield() {
 		isShielded = false;
 		framesWithShieldActivated = 0;
+	}
+
+	public boolean checkShield() {
+		return isShielded;
 	}
 
 }

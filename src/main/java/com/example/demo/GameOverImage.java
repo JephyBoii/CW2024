@@ -12,6 +12,11 @@ public class GameOverImage extends ImageView {
 //		setImage(ImageSetUp.getImageList().get(ImageSetUp.getGameOver()));
 		setLayoutX(xPosition);
 		setLayoutY(yPosition);
+		this.setVisible(false);
+	}
+
+	public void showGameOverImage() {
+		this.setVisible(true);
 	}
 
 }

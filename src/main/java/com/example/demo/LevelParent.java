@@ -201,7 +201,7 @@ public abstract class LevelParent extends Observable {
 		}
 	}
 
-	private void updateLevelView() {
+	protected void updateLevelView() {
 		levelView.removeHearts(user.getHealth());
 	}
 
@@ -209,6 +209,10 @@ public abstract class LevelParent extends Observable {
 		for (int i = 0; i < currentNumberOfEnemies - enemyUnits.size(); i++) {
 			user.incrementKillCount();
 		}
+	}
+
+	protected LevelView getLevelView() {
+		return levelView;
 	}
 
 	private boolean enemyHasPenetratedDefenses(ActiveActorDestructible enemy) {

@@ -13,13 +13,15 @@ public class LevelViewLevelTwo extends LevelView {
 		super(root, heartsToDisplay);
 		this.root = root;
 		this.shieldImage = new ShieldImage(SHIELD_X_POSITION, SHIELD_Y_POSITION);
+		//addImagesToRoot(shieldImage);
 		addImagesToRoot();
 	}
-	
+
 	private void addImagesToRoot() {
-		root.getChildren().addAll(shieldImage);
+		root.getChildren().add(shieldImage);
+		showShield();
 	}
-	
+
 	public void showShield() {
 		shieldImage.showShield();
 	}
@@ -28,4 +30,8 @@ public class LevelViewLevelTwo extends LevelView {
 		shieldImage.hideShield();
 	}
 
+	@Override
+	public void showGameOverImage() {
+		shieldImage.showShield();
+	}
 }
