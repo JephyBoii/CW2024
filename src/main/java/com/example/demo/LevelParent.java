@@ -96,9 +96,9 @@ public abstract class LevelParent{
 		handleEnemyProjectileCollisions();
 		handlePlaneCollisions();
 		removeAllDestroyedActors();
-		updateKillCount();
 		updateLevelView();
 		checkIfGameOver();
+		handleEnemyOutOfBounds();
 	}
 
 	private void initializeTimeline() {
@@ -177,24 +177,28 @@ public abstract class LevelParent{
 	}
 
 	private void handlePlaneCollisions() {
-		handleCollisions(friendlyUnits, enemyUnits);
+		handleCollisions(friendlyUnits, enemyUnits, false);
 	}
 
 	private void handleUserProjectileCollisions() {
-		handleCollisions(userProjectiles, enemyUnits);
+		handleCollisions(userProjectiles, enemyUnits, true);
 	}
 
 	private void handleEnemyProjectileCollisions() {
-		handleCollisions(enemyProjectiles, friendlyUnits);
+		handleCollisions(enemyProjectiles, friendlyUnits, false);
 	}
 
 	private void handleCollisions(List<ActiveActorDestructible> actors1,
-			List<ActiveActorDestructible> actors2) {
+			List<ActiveActorDestructible> actors2, boolean killCount) {
 		for (ActiveActorDestructible actor : actors2) {
 			for (ActiveActorDestructible otherActor : actors1) {
 				if (actor.getBoundsInParent().intersects(otherActor.getBoundsInParent())) {
 					actor.takeDamage();
 					otherActor.takeDamage();
+					if (actor.isDestroyed() && killCount) {
+						user.incrementKillCount();
+						System.out.println(user.getNumberOfKills());
+					}
 				}
 			}
 		}
@@ -213,18 +217,16 @@ public abstract class LevelParent{
 		levelView.removeHearts(user.getHealth());
 	}
 
-	private void updateKillCount() {
-		for (int i = 0; i < currentNumberOfEnemies - enemyUnits.size(); i++) {
-			user.incrementKillCount();
-		}
-	}
-
 	protected LevelView getLevelView() {
 		return levelView;
 	}
 
 	private boolean enemyHasPenetratedDefenses(ActiveActorDestructible enemy) {
 		return Math.abs(enemy.getTranslateX()) > screenWidth;
+	}
+
+	private boolean enemyIsOutOfBounds(ActiveActorDestructible enemy) {
+		return Math.abs(enemy.getTranslateY()) > screenHeight + 300 || Math.abs(enemy.getTranslateY()) < -300;
 	}
 
 	protected void winGame() {
@@ -262,12 +264,24 @@ public abstract class LevelParent{
 		return screenWidth;
 	}
 
+	protected double getScreenHeight() {
+		return screenHeight;
+	}
+
 	protected boolean userIsDestroyed() {
 		return user.isDestroyed();
 	}
 
 	private void updateNumberOfEnemies() {
 		currentNumberOfEnemies = enemyUnits.size();
+	}
+
+	private void handleEnemyOutOfBounds() {
+		for (ActiveActorDestructible enemy : enemyUnits) {
+			if (enemyIsOutOfBounds(enemy)) {
+				enemy.destroy();
+			}
+		}
 	}
 
 }
