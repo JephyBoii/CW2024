@@ -8,26 +8,28 @@ public class EnemyPlane extends FighterPlane {
 	private static final int VERTICAL_VELOCITY = 5;
 	private static final double PROJECTILE_X_POSITION_OFFSET = -100.0;
 	private static final double PROJECTILE_Y_POSITION_OFFSET = 50.0;
-	private static final int INITIAL_HEALTH = 1;
+	private static final int INITIAL_HEALTH = 2;
 	private static final double FIRE_RATE = .01;
 	private static final int ZERO = 0;
 
-	private double aliveTime = 0;
-	private final double entryTime = Math.random() * 300;
+	private double aliveTime = -(Math.random()*200);//0;
+	private final double entryTime = Math.random() * 200;
 	private final double exitTime =  100 + entryTime;
 	private final double ENTRY_Y_POSITION;
 	private final boolean isTopSpawn;
 	private double b = 0;
 
 	public EnemyPlane(double initialXPos, double initialYPos, double spawnPositionY) {
-		super(IMAGE_NAME, IMAGE_HEIGHT, initialXPos, spawnPositionY, INITIAL_HEALTH);
+		super(IMAGE_NAME, IMAGE_HEIGHT, initialXPos - 100*Math.random(), spawnPositionY, INITIAL_HEALTH);
 		ENTRY_Y_POSITION = initialYPos;
 		isTopSpawn = spawnPositionY < ZERO;
 	}
 
 	@Override
 	public void updatePosition() {
-		moveHorizontally(HORIZONTAL_VELOCITY);
+		if (aliveTime >= 0) {
+			moveHorizontally(HORIZONTAL_VELOCITY);
+		}
 		if (aliveTime > entryTime) {
 			if (notAtPosition(isTopSpawn)) {
 				enterStage(isTopSpawn);
@@ -46,8 +48,8 @@ public class EnemyPlane extends FighterPlane {
 	public ActiveActorDestructible fireProjectile() {
 		if (Math.random() < FIRE_RATE) {
 			double projectileXPosition = getProjectileXPosition(PROJECTILE_X_POSITION_OFFSET);
-			double projectileYPostion = getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET);
-			return new EnemyProjectile(projectileXPosition, projectileYPostion);
+			double projectileYPosition = getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET);
+			return new EnemyProjectile(projectileXPosition, projectileYPosition);
 		}
 		return null;
 	}
