@@ -17,13 +17,11 @@ public class EnemyPlane extends FighterPlane {
 	private final double exitTime =  100 + entryTime;
 	private final double ENTRY_Y_POSITION;
 	private final boolean isTopSpawn;
-	private double VELOCITY_MULTIPLIER = 3;
-	private double PREVIOUS_POSITION;
+	private double b = 0;
 
 	public EnemyPlane(double initialXPos, double initialYPos, double spawnPositionY) {
 		super(IMAGE_NAME, IMAGE_HEIGHT, initialXPos, spawnPositionY, INITIAL_HEALTH);
 		ENTRY_Y_POSITION = initialYPos;
-		PREVIOUS_POSITION = spawnPositionY;
 		isTopSpawn = spawnPositionY < ZERO;
 	}
 
@@ -31,30 +29,12 @@ public class EnemyPlane extends FighterPlane {
 	public void updatePosition() {
 		moveHorizontally(HORIZONTAL_VELOCITY);
 		if (aliveTime > entryTime) {
-			if (isTopSpawn &&
-			(getProjectileYPosition(ZERO)<ENTRY_Y_POSITION+10 ||
-			(getProjectileYPosition(ZERO)<ENTRY_Y_POSITION-10))) {
-				if (getProjectileYPosition(ZERO) > (PREVIOUS_POSITION + ENTRY_Y_POSITION)/1.1 - 10||
-				getProjectileYPosition(ZERO) > (PREVIOUS_POSITION + ENTRY_Y_POSITION)/1.1 + 10) {
-					VELOCITY_MULTIPLIER *= 0.5;
-					PREVIOUS_POSITION = getProjectileYPosition(ZERO);
-				}
-				moveVertically(VERTICAL_VELOCITY*VELOCITY_MULTIPLIER); //positive value to move down
-			} else if (!isTopSpawn &&
-			(getProjectileYPosition(ZERO)>ENTRY_Y_POSITION+10 ||
-			(getProjectileYPosition(ZERO)<ENTRY_Y_POSITION-10))) {
-				if (getProjectileYPosition(ZERO) < (PREVIOUS_POSITION + ENTRY_Y_POSITION)/2.6 - 10||
-				getProjectileYPosition(ZERO) < (PREVIOUS_POSITION + ENTRY_Y_POSITION)/2.6 + 10) {
-					VELOCITY_MULTIPLIER *= 0.5;
-					PREVIOUS_POSITION = getProjectileYPosition(ZERO);
-				}
-				moveVertically((-VERTICAL_VELOCITY)*VELOCITY_MULTIPLIER);
+			if (notAtPosition(isTopSpawn)) {
+				enterStage(isTopSpawn);
 			} else {
 				aliveTime += 1;
-				if (aliveTime > exitTime && isTopSpawn) {
-					moveVertically(VERTICAL_VELOCITY);
-				} else if (aliveTime > exitTime && !isTopSpawn) {
-					moveVertically(-VERTICAL_VELOCITY);
+				if (aliveTime > exitTime) {
+					exitStage(isTopSpawn);
 				}
 			}
 		} else {
@@ -75,6 +55,40 @@ public class EnemyPlane extends FighterPlane {
 	@Override
 	public void updateActor() {
 		updatePosition();
+	}
+
+	private boolean notAtPosition(boolean isTop) {
+		if (isTop && getProjectileYPosition(ZERO)<ENTRY_Y_POSITION) {
+			return true;
+		} else return !isTop && getProjectileYPosition(ZERO) > ENTRY_Y_POSITION;
+	}
+
+	private void enterStage(boolean isTop) {
+		if (isTop) {
+			double a = ENTRY_Y_POSITION - getProjectileYPosition(ZERO);
+			moveVertically(VERTICAL_VELOCITY + a/15);
+		} else {
+			double a = ENTRY_Y_POSITION - getProjectileYPosition(ZERO);
+			moveVertically(-VERTICAL_VELOCITY + a/15);
+		}
+	}
+
+	private void exitStage(boolean isTop) {
+		if (isTop) {
+			if (VERTICAL_VELOCITY + b < 20) {
+				moveVertically(VERTICAL_VELOCITY + b);
+				b += 1;
+			} else {
+				moveVertically(VERTICAL_VELOCITY + b);
+			}
+		} else {
+			if (-(VERTICAL_VELOCITY + b) > -20) {
+				moveVertically(-VERTICAL_VELOCITY - b);
+				b += 1;
+			} else {
+				moveVertically(-VERTICAL_VELOCITY - b);
+			}
+		}
 	}
 
 }
