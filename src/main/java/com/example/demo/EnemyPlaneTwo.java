@@ -11,6 +11,7 @@ public class EnemyPlaneTwo extends FighterPlane {
     private static final int INITIAL_HEALTH = 6;
     private static final double FIRE_RATE = .01;
     private static final int ZERO = 0;
+    private static final int MAX_VELOCITY = 15;
 
     private double aliveTime = -(Math.random()*200);
     private final double entryTime = Math.random() * 600;
@@ -68,25 +69,25 @@ public class EnemyPlaneTwo extends FighterPlane {
     private void enterStage(boolean isTop) {
         if (isTop) {
             double a = ENTRY_Y_POSITION - getPositionY();
-            moveVertically(VERTICAL_VELOCITY + a/15);
+            moveVertically(VERTICAL_VELOCITY + a/50);
         } else {
             double a = ENTRY_Y_POSITION - getPositionY();
-            moveVertically(-VERTICAL_VELOCITY + a/15);
+            moveVertically(-VERTICAL_VELOCITY + a/50);
         }
     }
 
     private void exitStage(boolean isTop) {
         if (isTop) {
-            if (VERTICAL_VELOCITY + b < 15) {
+            if (VERTICAL_VELOCITY + b < MAX_VELOCITY) {
                 moveVertically(VERTICAL_VELOCITY + b);
-                b += 1;
+                b += 0.5;
             } else {
                 moveVertically(VERTICAL_VELOCITY + b);
             }
         } else {
-            if (-(VERTICAL_VELOCITY + b) > -15) {
+            if (-(VERTICAL_VELOCITY + b) > -MAX_VELOCITY) {
                 moveVertically(-VERTICAL_VELOCITY - b);
-                b += 1;
+                b += 0.5;
             } else {
                 moveVertically(-VERTICAL_VELOCITY - b);
             }
