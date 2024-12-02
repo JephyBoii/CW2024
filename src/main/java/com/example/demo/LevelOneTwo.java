@@ -7,11 +7,10 @@ public class LevelOneTwo extends LevelParent {
     private static final int TOTAL_ENEMIES = 12;
     private static final int KILLS_TO_ADVANCE = 10;
     private static final double ENEMY_SPAWN_PROBABILITY = .20;
-    private static final int PLAYER_INITIAL_HEALTH = 5;
     private boolean tryOnce = true;
 
-    public LevelOneTwo(double screenHeight, double screenWidth) {
-        super(BACKGROUND_IMAGE_NAME, screenHeight, screenWidth, PLAYER_INITIAL_HEALTH);
+    public LevelOneTwo(double screenHeight, double screenWidth, int health) {
+        super(BACKGROUND_IMAGE_NAME, screenHeight, screenWidth, health);
     }
 
     @Override
@@ -48,7 +47,7 @@ public class LevelOneTwo extends LevelParent {
 
     @Override
     protected LevelView instantiateLevelView() {
-        return new LevelView(getRoot(), PLAYER_INITIAL_HEALTH);
+        return new LevelView(getRoot(), getUser().getHealth());
     }
 
     private boolean userHasReachedKillTarget() {

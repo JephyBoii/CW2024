@@ -14,7 +14,7 @@ import javafx.util.Duration;
 public abstract class LevelParent{
 
 	public interface Listener {
-		void fetch(String Data);
+		void fetch(String Data, int health);
 	}
 
 	private static final double SCREEN_HEIGHT_ADJUSTMENT = 150;
@@ -83,7 +83,7 @@ public abstract class LevelParent{
 	}
 
 	public void goToNextLevel(String levelName) {
-		listener.fetch(levelName);
+		listener.fetch(levelName, getUser().getHealth());
 	}
 
 	private void updateScene() {

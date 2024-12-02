@@ -12,6 +12,7 @@ import com.example.demo.LevelParent;
 public class Controller implements LevelParent.Listener {
 
 	private static final String LEVEL_ONE_CLASS_NAME = "com.example.demo.LevelOne";
+	private static final int PLAYER_INITIAL_HEALTH = 10;
 	private final Stage stage;
 
 	public Controller(Stage stage) {
@@ -22,14 +23,14 @@ public class Controller implements LevelParent.Listener {
 			InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException  {
 
 			stage.show();
-			goToLevel(LEVEL_ONE_CLASS_NAME);
+			goToLevel(LEVEL_ONE_CLASS_NAME, PLAYER_INITIAL_HEALTH);
 	}
 
-	private void goToLevel(String className) throws ClassNotFoundException, NoSuchMethodException, SecurityException,
+	private void goToLevel(String className, int health) throws ClassNotFoundException, NoSuchMethodException, SecurityException,
 			InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 			Class<?> myClass = Class.forName(className);
-			Constructor<?> constructor = myClass.getConstructor(double.class, double.class);
-			LevelParent myLevel = (LevelParent) constructor.newInstance(stage.getHeight(), stage.getWidth());
+			Constructor<?> constructor = myClass.getConstructor(double.class, double.class, int.class);
+			LevelParent myLevel = (LevelParent) constructor.newInstance(stage.getHeight(), stage.getWidth(), health);
 			myLevel.setListener(this);
 			Scene scene = myLevel.initializeScene();
 			stage.setScene(scene);
@@ -38,9 +39,9 @@ public class Controller implements LevelParent.Listener {
 	}
 
 	@Override
-	public void fetch(String data) {
+	public void fetch(String data, int health) {
 		try {
-			goToLevel(data);
+			goToLevel(data, health);
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
 				| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			Alert alert = new Alert(AlertType.ERROR);
