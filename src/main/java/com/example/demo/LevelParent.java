@@ -22,6 +22,8 @@ public abstract class LevelParent{
 	private final double screenHeight;
 	private final double screenWidth;
 	private final double enemyMaximumYPosition;
+	private double fireRate = 0;
+	private boolean firing = false;
 
 	private final Group root;
 	private final Timeline timeline;
@@ -33,8 +35,7 @@ public abstract class LevelParent{
 	private final List<ActiveActorDestructible> enemyUnits;
 	private final List<ActiveActorDestructible> userProjectiles;
 	private final List<ActiveActorDestructible> enemyProjectiles;
-	
-	private int currentNumberOfEnemies;
+
 	private LevelView levelView;
 	private Listener listener;
 
@@ -53,7 +54,6 @@ public abstract class LevelParent{
 		this.screenWidth = screenWidth;
 		this.enemyMaximumYPosition = screenHeight - SCREEN_HEIGHT_ADJUSTMENT;
 		this.levelView = instantiateLevelView();
-		this.currentNumberOfEnemies = 0;
 		initializeTimeline();
 		friendlyUnits.add(user);
 	}
@@ -90,7 +90,6 @@ public abstract class LevelParent{
 		spawnEnemyUnits();
 		updateActors();
 		generateEnemyFire();
-		updateNumberOfEnemies();
 		handleEnemyPenetration();
 		handleUserProjectileCollisions();
 		handleEnemyProjectileCollisions();
@@ -99,6 +98,7 @@ public abstract class LevelParent{
 		updateLevelView();
 		checkIfGameOver();
 		handleEnemyOutOfBounds();
+		generateUserFire();
 	}
 
 	private void initializeTimeline() {
@@ -123,7 +123,7 @@ public abstract class LevelParent{
 				if (kc == KeyCode.DOWN) {user.moveDown(); movingDown[0] = true;}
 				if (kc == KeyCode.LEFT) {user.moveLeft(); movingLeft[0] = true;}
 				if (kc == KeyCode.RIGHT) {user.moveRight(); movingRight[0] = true;}
-				if (kc == KeyCode.SPACE) fireProjectile();
+				if (kc == KeyCode.SPACE) fireProjectile(true);
 			}
 		});
 		background.setOnKeyReleased(new EventHandler<KeyEvent>() {
@@ -133,15 +133,31 @@ public abstract class LevelParent{
 				if (kc == KeyCode.DOWN) {movingDown[0] = false; if (!movingUp[0]) user.stopY();}
 				if (kc == KeyCode.LEFT) {movingLeft[0] = false; if (!movingRight[0]) user.stopX();}
 				if (kc == KeyCode.RIGHT) {movingRight[0] = false; if (!movingLeft[0]) user.stopX();}
+				if (kc == KeyCode.SPACE) fireProjectile(false);
 			}
 		});
 		root.getChildren().add(background);
 	}
 
-	private void fireProjectile() {
-		ActiveActorDestructible projectile = user.fireProjectile();
-		root.getChildren().add(projectile);
-		userProjectiles.add(projectile);
+	private void fireProjectile(boolean fire) {
+		firing = fire;
+	}
+
+	private void generateUserFire() {
+		if (fireRate == 0 && firing) {
+			ActiveActorDestructible projectile = user.fireProjectile();
+			root.getChildren().add(projectile);
+			userProjectiles.add(projectile);
+			fireRate = 12;
+		} else if (fireRate == 10 && firing) {
+			ActiveActorDestructible projectile = user.fireProjectile();
+			root.getChildren().add(projectile);
+			userProjectiles.add(projectile);
+			fireRate = 9;
+		}
+		if (fireRate > 0) {
+			fireRate--;
+		}
 	}
 
 	private void generateEnemyFire() {
@@ -270,10 +286,6 @@ public abstract class LevelParent{
 
 	protected boolean userIsDestroyed() {
 		return user.isDestroyed();
-	}
-
-	private void updateNumberOfEnemies() {
-		currentNumberOfEnemies = enemyUnits.size();
 	}
 
 	private void handleEnemyOutOfBounds() {
