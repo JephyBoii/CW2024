@@ -60,17 +60,17 @@ public class EnemyPlane extends FighterPlane {
 	}
 
 	private boolean notAtPosition(boolean isTop) {
-		if (isTop && getProjectileYPosition(ZERO)<ENTRY_Y_POSITION) {
+		if (isTop && getPositionY()<ENTRY_Y_POSITION) {
 			return true;
-		} else return !isTop && getProjectileYPosition(ZERO) > ENTRY_Y_POSITION;
+		} else return !isTop && getPositionY() > ENTRY_Y_POSITION;
 	}
 
 	private void enterStage(boolean isTop) {
 		if (isTop) {
-			double a = ENTRY_Y_POSITION - getProjectileYPosition(ZERO);
+			double a = ENTRY_Y_POSITION - getPositionY();
 			moveVertically(VERTICAL_VELOCITY + a/15);
 		} else {
-			double a = ENTRY_Y_POSITION - getProjectileYPosition(ZERO);
+			double a = ENTRY_Y_POSITION - getPositionY();
 			moveVertically(-VERTICAL_VELOCITY + a/15);
 		}
 	}
@@ -91,6 +91,10 @@ public class EnemyPlane extends FighterPlane {
 				moveVertically(-VERTICAL_VELOCITY - b);
 			}
 		}
+	}
+
+	private double getPositionY() {
+		return getLayoutY()+ getTranslateY();
 	}
 
 }
