@@ -197,7 +197,7 @@ public abstract class LevelParent{
 					otherActor.takeDamage();
 					if (actor.isDestroyed() && killCount) {
 						user.incrementKillCount();
-						System.out.println(user.getNumberOfKills());
+						//System.out.println(user.getNumberOfKills()); will be used for testing later
 					}
 				}
 			}

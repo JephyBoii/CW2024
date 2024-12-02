@@ -20,8 +20,8 @@ public class LevelOne extends LevelParent {
 		}
 		else if (userHasReachedKillTarget())
 			while (tryOnce) {
-			goToNextLevel(NEXT_LEVEL);
-			tryOnce = false;
+				goToNextLevel(NEXT_LEVEL);
+				tryOnce = false;
 			}
 	}
 
