@@ -149,7 +149,7 @@ public abstract class LevelParent{
 			root.getChildren().add(projectile);
 			userProjectiles.add(projectile);
 			fireRate = 12;
-		} else if (fireRate == 10 && firing) {
+		} else if (fireRate == 10) {
 			ActiveActorDestructible projectile = user.fireProjectile();
 			root.getChildren().add(projectile);
 			userProjectiles.add(projectile);

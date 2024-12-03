@@ -5,14 +5,14 @@ public class UserPlane extends FighterPlane {
 	private static final String IMAGE_NAME = "userplane.png";
 	private static final double Y_UPPER_BOUND = -40;
 	private static final double Y_LOWER_BOUND = 600.0;
-	private static final double X_UPPER_BOUND = 10000.0;
-	private static final double X_LOWER_BOUND = -10000.0;
+	private static final double X_UPPER_BOUND = 1300.0;
+	private static final double X_LOWER_BOUND = 0;
 	private static final double INITIAL_X_POSITION = 5.0;
 	private static final double INITIAL_Y_POSITION = 300.0;
-	private static final int IMAGE_HEIGHT = 150;
+	private static final int IMAGE_HEIGHT = 45;
 	private int VERTICAL_VELOCITY = 0;
 	private int HORIZONTAL_VELOCITY = 0;
-	private static final int PROJECTILE_X_POSITION_OFFSET = 0;
+	private static final int PROJECTILE_X_POSITION_OFFSET = 120;
 	private static final int PROJECTILE_Y_POSITION_OFFSET = 20;
 	private int numberOfKills;
 

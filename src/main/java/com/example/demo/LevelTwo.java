@@ -2,7 +2,7 @@ package com.example.demo;
 
 public class LevelTwo extends LevelParent {
 
-	private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background2.jpg";
+	private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background3.jpg";
 	private static final String NEXT_LEVEL = "com.example.demo.LevelTwoTwo";
 	private final Boss boss;
 	private boolean tryOnce = true;
