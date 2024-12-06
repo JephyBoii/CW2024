@@ -83,14 +83,13 @@ public abstract class LevelParent{
 	}
 
 	public void goToNextLevel(String levelName) {
-		listener.fetch(levelName, getUser().getHealth());
+		listener.fetch(levelName, user.getHealth());
 	}
 
 	private void updateScene() {
 		spawnEnemyUnits();
 		updateActors();
 		generateEnemyFire();
-		handleEnemyPenetration();
 		handleUserProjectileCollisions();
 		handleEnemyProjectileCollisions();
 		handlePlaneCollisions();
@@ -205,26 +204,17 @@ public abstract class LevelParent{
 	}
 
 	private void handleCollisions(List<ActiveActorDestructible> actors1,
-			List<ActiveActorDestructible> actors2, boolean killCount) {
+			List<ActiveActorDestructible> actors2, boolean countToKill) {
 		for (ActiveActorDestructible actor : actors2) {
 			for (ActiveActorDestructible otherActor : actors1) {
 				if (actor.getBoundsInParent().intersects(otherActor.getBoundsInParent())) {
 					actor.takeDamage();
 					otherActor.takeDamage();
-					if (actor.isDestroyed() && killCount) {
+					if (actor.isDestroyed() && countToKill) {
 						user.incrementKillCount();
 						//System.out.println(user.getNumberOfKills()); will be used for testing later
 					}
 				}
-			}
-		}
-	}
-
-	private void handleEnemyPenetration() {
-		for (ActiveActorDestructible enemy : enemyUnits) {
-			if (enemyHasPenetratedDefenses(enemy)) {
-				user.takeDamage();
-				enemy.destroy();
 			}
 		}
 	}
@@ -235,10 +225,6 @@ public abstract class LevelParent{
 
 	protected LevelView getLevelView() {
 		return levelView;
-	}
-
-	private boolean enemyHasPenetratedDefenses(ActiveActorDestructible enemy) {
-		return Math.abs(enemy.getTranslateX()) > screenWidth;
 	}
 
 	private boolean enemyIsOutOfBounds(ActiveActorDestructible enemy) {
