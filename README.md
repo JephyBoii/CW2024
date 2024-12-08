@@ -1,0 +1,212 @@
+# 1942 game: rafactored
+github repository link: https://github.com/JephyBoii/CW2024
+
+## introduction and proejct description
+
+the game involves moving up and down on the left side of the screen with enemies spawning on the right side of the screen.
+in my refafactored version, numerous additions were implemented and various aspects werer modified or completely changed.
+however, the basic functionality of the game remains the same, the game has been almost completely reworked and improved.
+
+## compilation inctructions
+
+stuff goes here...
+
+## implemented and working properly
+
+### improved movement and shooting + health carry over
+addition of left and right movement and improved input reading, although not perfect. [LevelParent.java: 122-136, UserPlane.java: 25-38, 55-65]
+change of shooting system, now fires bursts of 2 bullets at a time and the ability to hold down shoot button. [LevelParent.java: 142-161]
+health correctly carries over to the next level. [Controller.java: 34, 38]
+
+### new listener interfaces
+implemented new listener interfaces between controller, levelparent and menuscreen classes. [LevelParent.java: 16-18, MenuScreen.java: 11-13, Controller.java: 29, 30, 39, 47, 63]
+correctly and appropriately sends needed data for game to progress. [LevelOne.java, LevelOneTwo.java, LevelTwo.java, LevelTwoTwo.java]
+
+### main menu screen and game over screen
+implemented a main menu screen upon launch and an ending screen depending on user win or loss. [MenuScreen.java, Controller.java: 28-30]
+correctly takes the player to the first level or exits the program. [MenuScreen.java: 38-45]
+
+### new stage level + new enemy type
+new level following first level with a new enemy which shoots different types of bullets and have different health. [LevelOneTwo.java, EnemyPlaneTwo.java, EnemyProjectileTwo.java]
+also displays a new background. [LevelOneTwo.java: 5]
+
+### new boss level + new boss type
+new level following the inital boss level with a new boss which shoots different type of bullet and has different health and mechnanic. [LevelTwoTwo.java, BossTwo.java, BossProjectileTwo.java]
+spawns minions in the fight. [LevelTwoTwo.java: 38-50]
+
+## implemented but not working properly
+
+stuff goes here...
+
+## features not implemented
+
+### music + SFX
+addition of a new class which controls all SFX.
+not implemented due to time constraints.
+
+### further refactoring of levelparent class
+separation of all activeactor handlers, collisions etc. into its own class.
+not implemented due to time constraints.
+
+### pause menu
+ability to pause the game during gameplay without disrupting anything.
+not implemented due to time constraints.
+
+### resizable/resized window
+ability to resize the window to the user's content or fullscreen for better view.
+not implemented due to time constraints.
+
+## new java classes
+
+### 1. MenuScreen.java
+new 'parent' class for all menus displayed within the game.
+displays start screen, lose screen and win screen.
+includes start game/restart game button which takes the user to the first level and an exit game button which closes the program.
+includes a listener interface for Controller.java to appropriately call which menu to be displayed.
+
+### 2. MainMenuImage.java
+imageview for the main menu image to be displayed on the start screen.
+
+### 3. LevelOneTwo.java
+a new stage level which displays a new background image and spawns new enemies.
+has a different spawn pattern and pass requirement.
+
+### 4. LevelTwoTwo.java
+a new boss level which displays a new basckground image and spawns a new boss.
+also spawns enemies.
+
+### 5. EnemyPlaneTwo.java
+new type of enemy with different health, speed and spawn values.
+also shoots different bullets.
+
+### 6. EnemyProjectileTwo.java
+new type of enemy projectile used by the new enemy.
+has different velocity value and movement pattern, starting slow before accelerating rapidly.
+
+### 7. BossTwo.java
+new type of boss with different health, speed and mechanic.
+shoots different bullets.
+
+### 8. BossProjectileTwo.java
+new type of boss projectile used by new boss.
+has different movement pattern similar to enemy projectile two.
+
+## modified java classes
+
+### Controller.java
+- implements 2 new listener interafaces for LevelParent.java and MenuScreen.java for data to be appropriately communicated between each class for the correct functions to take place.
+- the interface for LevelParent.java allows the current level to call for a new level through Controller.
+- the interface for MenuScreen.java allows the level of LevelParent.java to call the appropriate end screen following the end of a level.
+- this was done because the observer interface is depreciated and did not allow for specific listener calls to be made such as a menu call and level call.#
+
+### LevelParent.java
+- added additional key presses and releases for horizontal user movement.
+- additionally reworked key press/release-to-move system to allow smoother transition between movement key presses. previously, if for example the up key was pressed, the plane would move up; when the down key was pressed the plane would then move down but when the up key was released the override of user.stop() on key release forced the plane to stop.
+- updateLevelView() function was turned into a protected funcction to allow LevelTwo.java to override it (needed for shield display to work properly).
+- additionally a new function getLevelView() was added.
+- no longer extends observable; new listener interface implemented.
+- when goToNextLevel() si called, updates listener (Controller.java) to fecth level name.
+- adjusted MILLISECOND_DELAY to 40 (from 50) to slightly speed up the game.
+- removed updateKillCount()
+- updated collision handle functions to also account for kill count (will only increment if user projectile affects enemy plane)
+- incrementKillCount() is now called when an enemy plane is killed by a user projectile
+- added enemyIsOutOfBounds() and handleEnemyOutOfBounds() to deal with enemies moving off screen vertically with added enemy spawn patterns.
+- added getScreenHeight() to be called by levelOne.java and levelOneTwo.java when deciding spawn of enemy plane
+- completely depreciated currentNumberOfEnemies, its function updateNumberOfEnemies() and its instantiation in the constructor as it can be observed that getCurrentNumberOfEnemies returns something else
+- reworked firing mechanics:
+- fireProjectile affects firing boolean
+- generateUserFire is included when updateScene() is called
+- fires a burst (of 2 projectiles with a 2-update difference) every 10 updates whilst spacebar is being held
+- changed getUser().getHealth() to user.getHealth()
+- removed handleEnemyPenetration() and enemyHasPenetratedDefenses() because enemy can no longer do that
+- renamed boolean killCount to countToKill because it's more intuitive
+- added gameEnded function in listener interface
+- changed winGame() and loseGame() to send data to listener rather than show win/lose image. this data determines whether the menuscreen will display a lose or win
+
+### LevelOne.java
+- added a boolean variable tryOnce to ensure goToNextLevel(), loseGame() and WinGame() are called once and not repeatedly.
+- NEXT_LEVEL string replaced to point to levelOneTwo (next level)
+- added new variable spawnPositionY which determines whether a plane will spawn on top or bottom off screen
+- removed player initial health variable
+- added new variable into constructor call: health
+- updated instantiateLevelView() to accommodate health carry over
+
+### LevelTwo.java
+- adjusted instantiateLevelView() to be protected
+- added updateLevelView() override for shield display
+- removed player initial health variable
+- added new variable into constructor call, health
+- updated instantiateLevelView to accommodate health carry over
+- changed NEXT_LEVEL variable to point to LevelTwoTwo (next level)
+- added a boolean variable tryOnce to ensure goToNextLevel(), loseGame() and WinGame() are called once and not repeatedly.
+
+### LevelView.java
+- main function is to display any and every UI element that isnt a plane or projectile
+- added shield as an image
+- added showShield() and hideShield() for shield display function
+- removed win image and lose image (transfered to MenuScreen.java)
+
+### LevelViewLevelTwo.java
+- fully depreciated
+- all previous functionality transferred to LevelView.java
+
+### UserPlane.java
+- reworked velocity and multiplier variables
+- added moveRight() and moveLeft() functions
+- separated stop() into stopY() and stopX() in order to allow their movement methods to be independent
+- added Projectile x offset variable(set to 0)
+- adjust fireProjectile() to send position of player rather than a static x value
+- updated x/y upper/lower bounds
+
+### EnemyPlane.java
+- overhauled updatePosition() to have an enemy spawn either above or below the screen and accelerate downwards/upwards into its given Y position to a halt. each enemy enter and exit at different times, determined by the aliveTime variable value.
+- added new intake spawnPosition which is the plane's position to travel to after spawning from off screen
+- added a lot of new variables to accomodate the new movement overhaul
+- overhauled updatePosition() to be more readable
+- created boolean function notAtPosition() to confirm whether an enemy plane is where they are supposed to be from their spawn for entry
+- created enterStage() which takes a boolean to determine its spawn position (above or below the screen) and properly enter the stage
+- created exitStage() to properly determine its next movement to make to exit a  stage
+- added private double b to help with calculations for exitStage()
+- initial health increased (from 1 to 2)
+- alive time adjusted for more variety enemy initial positions (was 0)
+- entry time adjusted to prevent enemies spawning too close (from 300 to 200)
+-  instantiation value initialXPos adjusted to allow more variety of spawn positions
+- added new if statement in updatePosition() to allow more variety of spawn positions
+- renamed a variable (misspelling) in fireProjectile()
+- added new function, getPositionY() to replace previoiusly "getProjectilePosition(ZERO)"
+- adjusted some values
+- added new variable, max velocity
+
+### Boss.java
+- adjusted activateShield and deactivateShield to be protected to allow them to be called in a higher class
+- adjusted shieldExhausted
+- adjusted MAX_FRAMES_WITH_SHIELD
+- added checkShield() so a higher class can check if shield is activated or not (to display)
+- adjusted initial Y position to center
+
+### GameOverImage.java
+- added a line to set its visibility to false on instantiation
+- added function to set its visibility to true
+- removed intake variables
+- restructured entire body and functions
+
+### WinImage.java
+- removed height and width variables
+- reworked entire body and function
+
+### ShieldImage.java
+- added setVisible(false)
+- removed shield size variable
+- manually set shield size
+
+### UserProjectile.java
+- adjusted velocity (from 15 to 10)
+- added velocity multiplier
+- updated updatePosition() to adjust for new bullet velocity calculation
+- adjusted velocity multiplier value (from 1.1 to 2)
+- added new maximum velocity value
+- reworked projectile movement to work more reasonably and controllably (no longer multiplies velocity with multiplier for a very irrational final velocity)
+
+## unexpected problems
+
+stuff goes here...
