@@ -22,8 +22,7 @@ public class Controller implements LevelParent.Listener, MenuScreen.Listener {
 		this.stage = stage;
 	}
 
-	public void launchGame() throws ClassNotFoundException, NoSuchMethodException, SecurityException,
-            InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, IOException {
+	public void launchGame() throws SecurityException, IllegalArgumentException {
 
 			stage.show();
 			this.menu = new MenuScreen(LEVEL_ONE_CLASS_NAME, PLAYER_INITIAL_HEALTH);
