@@ -5,7 +5,7 @@ public class LevelOneTwo extends LevelParent {
     private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background2.jpg";
     private static final String NEXT_LEVEL = "com.example.demo.LevelTwo";
     private static final int TOTAL_ENEMIES = 12;
-    private static final int KILLS_TO_ADVANCE = 3;
+    private static final int KILLS_TO_ADVANCE = 30;
     private static final double ENEMY_SPAWN_PROBABILITY = .20;
     private boolean tryOnce = true;
 

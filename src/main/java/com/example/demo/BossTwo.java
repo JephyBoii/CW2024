@@ -11,7 +11,7 @@ public class BossTwo extends FighterPlane {
     private static final double BOSS_FIRE_RATE = .025;
     private static final int IMAGE_HEIGHT = 80;
     private static final int VERTICAL_VELOCITY = 5;
-    private static final int HEALTH = 10;
+    private static final int HEALTH = 80;
     private static final int MOVE_FREQUENCY_PER_CYCLE = 4;
     private static final int ZERO = 0;
     private static final int MAX_FRAMES_WITH_SAME_MOVE = 10;
