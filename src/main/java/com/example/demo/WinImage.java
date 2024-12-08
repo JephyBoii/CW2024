@@ -6,20 +6,19 @@ import javafx.scene.image.ImageView;
 public class WinImage extends ImageView {
 	
 	private static final String IMAGE_NAME = "/com/example/demo/images/youwin.png";
-	private static final int HEIGHT = 500;
-	private static final int WIDTH = 600;
 	
-	public WinImage(double xPosition, double yPosition) {
-		this.setImage(new Image(getClass().getResource(IMAGE_NAME).toExternalForm()));
-		this.setVisible(false);
-		this.setFitHeight(HEIGHT);
-		this.setFitWidth(WIDTH);
-		this.setLayoutX(xPosition);
-		this.setLayoutY(yPosition);
+	public WinImage() {
+		setImage(new Image(String.valueOf(getClass().getResource(IMAGE_NAME))));
+		setFitWidth(1300);
+		setFitHeight(750);
+		setLayoutX(0);
+		setLayoutY(0);
+		setVisible(false);
+		setPreserveRatio(true);
 	}
 	
 	public void showWinImage() {
-		this.setVisible(true);
+		setVisible(true);
 	}
 
 }

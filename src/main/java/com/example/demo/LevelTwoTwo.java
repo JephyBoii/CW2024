@@ -4,6 +4,7 @@ public class LevelTwoTwo extends LevelParent{
 
     private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background4.jpg";
     private final BossTwo boss;
+    private boolean tryOnce = true;
 
     private final int TOTAL_ENEMIES = 4;
 
@@ -20,10 +21,16 @@ public class LevelTwoTwo extends LevelParent{
     @Override
     protected void checkIfGameOver() {
         if (userIsDestroyed()) {
-            loseGame();
+            while (tryOnce) {
+                loseGame();
+                tryOnce = false;
+            }
         }
         else if (boss.isDestroyed()) {
-            winGame();
+            while (tryOnce) {
+                winGame();
+                tryOnce = false;
+            }
         }
     }
 

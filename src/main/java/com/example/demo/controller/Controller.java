@@ -1,29 +1,35 @@
 package com.example.demo.controller;
 
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+import com.example.demo.MenuScreen;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import com.example.demo.LevelParent;
 
-public class Controller implements LevelParent.Listener {
+public class Controller implements LevelParent.Listener, MenuScreen.Listener {
 
 	private static final String LEVEL_ONE_CLASS_NAME = "com.example.demo.LevelOne";
 	private static final int PLAYER_INITIAL_HEALTH = 10;
 	private final Stage stage;
+	private MenuScreen menu;
 
 	public Controller(Stage stage) {
 		this.stage = stage;
 	}
 
 	public void launchGame() throws ClassNotFoundException, NoSuchMethodException, SecurityException,
-			InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException  {
+            InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, IOException {
 
 			stage.show();
-			goToLevel(LEVEL_ONE_CLASS_NAME, PLAYER_INITIAL_HEALTH);
+			this.menu = new MenuScreen(LEVEL_ONE_CLASS_NAME, PLAYER_INITIAL_HEALTH);
+			menu.setMenuListener(this);
+			stage.setScene(menu.getStart());
+
 	}
 
 	private void goToLevel(String className, int health) throws ClassNotFoundException, NoSuchMethodException, SecurityException,
@@ -52,5 +58,10 @@ public class Controller implements LevelParent.Listener {
 			exec.printStackTrace();
 			System.exit(0);
 		}
+	}
+
+	@Override
+	public void gameEnded(boolean n) {
+		stage.setScene(menu.getEnd(n));
 	}
 }

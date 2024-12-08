@@ -16,7 +16,10 @@ public class LevelOneTwo extends LevelParent {
     @Override
     protected void checkIfGameOver() {
         if (userIsDestroyed()) {
-            loseGame();
+            while (tryOnce) {
+                loseGame();
+                tryOnce = false;
+            }
         }
         else if (userHasReachedKillTarget())
             while (tryOnce) {

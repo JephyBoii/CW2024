@@ -15,6 +15,7 @@ public abstract class LevelParent{
 
 	public interface Listener {
 		void fetch(String Data, int health);
+		void gameEnded(boolean n);
 	}
 
 	private static final double SCREEN_HEIGHT_ADJUSTMENT = 150;
@@ -233,12 +234,12 @@ public abstract class LevelParent{
 
 	protected void winGame() {
 		timeline.stop();
-		levelView.showWinImage();
+		listener.gameEnded(true);
 	}
 
 	protected void loseGame() {
 		timeline.stop();
-		levelView.showGameOverImage();
+		listener.gameEnded(false);
 	}
 
 	protected UserPlane getUser() {
