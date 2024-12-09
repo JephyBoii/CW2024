@@ -9,7 +9,9 @@ however, the basic functionality of the game remains the same, the game has been
 
 ## compilation inctructions
 
-stuff goes here...
+1. open the source code on your preferred IDE
+2. find and select the Main.java class
+3. run it
 
 ## implemented and working properly
 
@@ -36,7 +38,7 @@ spawns minions in the fight. [LevelTwoTwo.java: 38-50]
 
 ## implemented but not working properly
 
-stuff goes here...
+nothing really...
 
 ## features not implemented
 
@@ -209,4 +211,8 @@ has different movement pattern similar to enemy projectile two.
 
 ## unexpected problems
 
-stuff goes here...
+Some functions would be repeatedly called when they were only supposed to be called once. this would greatly consume a lot of RAM and slow the game down significantly, occasionally crashing the program altogether. to fix this issue i added a variable in each class where this problem could occur to make sure that the culprit function would only be able to be  called once.
+
+In level two, the boss shield would not be properly displayed as there was nothing relating displaying the shield in level view to the boss needing the shield to be activated. to fix this, I overrode the updatelevelview() function in level two to check when the boss needed the shield to be active and called the showShield() function in its levelview.
+
+Apparently all the hitboxes/sizes of teh actual images were much larger than what we see in game because of transparent elemnts of those imaages. to fix this, i simply replaced every image, taking into account the transparent parts and scaling everything properly.
