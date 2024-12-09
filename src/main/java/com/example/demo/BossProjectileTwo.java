@@ -1,5 +1,9 @@
 package com.example.demo;
 
+/**
+ * extends projectile, the bullets that boss 2 shoots out and damages the user plane upon contact.
+ */
+
 public class BossProjectileTwo extends Projectile {
 
     private static final String IMAGE_NAME = "bossfire2.png";
@@ -10,9 +14,18 @@ public class BossProjectileTwo extends Projectile {
     private static final int VELOCITY_MULTIPLIER = -5;
     private int timeAlive = 0;
 
+    /**
+     * initializes values which are passed to the superclass
+     * @param initialYPos
+     */
+
     public BossProjectileTwo(double initialYPos) {
         super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, initialYPos);
     }
+
+    /**
+     * updates the projectile's next move, which is to move slowly for some time before rapidly accelerating until its max velocity.
+     */
 
     @Override
     public void updatePosition() {
@@ -22,6 +35,10 @@ public class BossProjectileTwo extends Projectile {
             HORIZONTAL_VELOCITY += VELOCITY_MULTIPLIER;
         }
     }
+
+    /**
+     * calls function which updates the actor's current position
+     */
 
     @Override
     public void updateActor() {

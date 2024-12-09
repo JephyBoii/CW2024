@@ -1,5 +1,9 @@
 package com.example.demo;
 
+/**
+ * class extending levelparent.java. second boss level stage. spawns bosstwo.java and enemyplane.java. level pass requirement is killing the boss.
+ */
+
 public class LevelTwoTwo extends LevelParent{
 
     private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background4.jpg";
@@ -8,15 +12,32 @@ public class LevelTwoTwo extends LevelParent{
 
     private final int TOTAL_ENEMIES = 4;
 
+    /**
+     * called by controller.java, passing background image name, screen dimensions and player health.
+     * @param screenHeight
+     * @param screenWidth
+     * @param health
+     */
+
     public LevelTwoTwo(double screenHeight, double screenWidth, int health) {
         super(BACKGROUND_IMAGE_NAME, screenHeight, screenWidth, health);
         boss = new BossTwo();
     }
 
+    /**
+     * initializes the userplane.
+     */
+
     @Override
     protected void initializeFriendlyUnits() {
         getRoot().getChildren().add(getUser());
     }
+
+    /**
+     * checks whether the game is over (pass requirement achieved or player health drops to 0) every update.
+     * attached is a variable to ensure losegame() or wingame() function can only be called once.
+     * once the level pass requirement is met, calls a function end timeline and display win menu screen.
+     */
 
     @Override
     protected void checkIfGameOver() {
@@ -34,6 +55,12 @@ public class LevelTwoTwo extends LevelParent{
         }
     }
 
+    /**
+     * initializes enemy spawns of a level.
+     * spawns enemyplane.java.
+     * can spawn up to 4 enemies at a  time.
+     */
+
     @Override
     protected void spawnEnemyUnits() {
         if (getCurrentNumberOfEnemies() == 0) {
@@ -49,6 +76,11 @@ public class LevelTwoTwo extends LevelParent{
             addEnemyUnit(newEnemy);
         }
     }
+
+    /**
+     * instantiates level view, specifically the player hearts to display.
+     * @return
+     */
 
     @Override
     protected LevelView instantiateLevelView() {

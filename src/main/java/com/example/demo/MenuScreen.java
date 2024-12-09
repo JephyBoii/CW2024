@@ -6,7 +6,17 @@ import javafx.scene.Scene;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 
+/**
+ * menu screen main display. displays the main menu, win screen and game over screen.
+ * includes buttons which start game, restart game and exit game.
+ * includes an interface to communicate with controller.java.
+ */
+
 public class MenuScreen {
+
+    /**
+     * listener interface to fetch data to pass to next level function of controller.java.
+     */
 
     public interface Listener {
         void fetch(String Data, int health);
@@ -23,6 +33,13 @@ public class MenuScreen {
     private final GameOverImage gameoverimage;
     private final MainMenuImage mainmenuimage;
 
+    /**
+     * instantiates the menuscreen class by passing initial health and level name values.
+     * creates a new group and scene as well as images for the main, win and lose menu screen.
+     * @param levelName
+     * @param health
+     */
+
     public MenuScreen(String levelName, int health){
 
         this.LevelOneName = levelName;
@@ -35,11 +52,19 @@ public class MenuScreen {
 
     }
 
+    /**
+     * event handler to call fetch() and pass level name and initial health value to controller.java.
+     */
+
     EventHandler<ActionEvent> start = new EventHandler<ActionEvent>() {
         public void handle(ActionEvent e) {
             listener.fetch(LevelOneName, PlayerInitialHealth);
         }
     };
+
+    /**
+     * event handler to exit game.
+     */
 
     EventHandler<ActionEvent> end = new EventHandler<ActionEvent>() {
         public void handle(ActionEvent e) {
@@ -47,10 +72,24 @@ public class MenuScreen {
         }
     };
 
+    /**
+     * sets an implementing class as a listener of the interface.
+     * @param listener
+     */
+
     public void setMenuListener(MenuScreen.Listener listener) {
         this.listener = listener;
     }
 
+    /**
+     * returns a scene of a win or lose screen.
+     * determined by its boolean n value.
+     * restart game takes user to first level.
+     * exit game exits the program.
+     * buttons manually positioned and styled.
+     * @param n
+     * @return
+     */
 
     public Scene getEnd(boolean n) {
 
@@ -81,6 +120,14 @@ public class MenuScreen {
         return scene;
 
     }
+
+    /**
+     * returns a scene of the main menu screen.
+     * start game take user to first level.
+     * exit game exits the program.
+     * buttons are manually positioned and styled.
+     * @return
+     */
 
     public Scene getStart() {
 

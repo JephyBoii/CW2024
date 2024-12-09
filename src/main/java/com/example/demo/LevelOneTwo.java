@@ -1,5 +1,9 @@
 package com.example.demo;
 
+/**
+ * class extending levelparent.java. second stage level. spawns enemyplanetwo.java. level pass requirement is 30 kills.
+ */
+
 public class LevelOneTwo extends LevelParent {
 
     private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background2.jpg";
@@ -9,9 +13,22 @@ public class LevelOneTwo extends LevelParent {
     private static final double ENEMY_SPAWN_PROBABILITY = .20;
     private boolean tryOnce = true;
 
+    /**
+     * called by controller.java, passing background image name, screen dimensions and player health.
+     * @param screenHeight
+     * @param screenWidth
+     * @param health
+     */
+
     public LevelOneTwo(double screenHeight, double screenWidth, int health) {
         super(BACKGROUND_IMAGE_NAME, screenHeight, screenWidth, health);
     }
+
+    /**
+     * checks whether the game is over (pass requirement achieved or player health drops to 0) every update.
+     * attached is a variable to ensure losegame() or gotonextlevel() function can only be called once.
+     * once the level pass requirement is met, calls a function to go to next level, passing the levelname of the next level.
+     */
 
     @Override
     protected void checkIfGameOver() {
@@ -28,10 +45,20 @@ public class LevelOneTwo extends LevelParent {
             }
     }
 
+    /**
+     * initializes the userplane.
+     */
+
     @Override
     protected void initializeFriendlyUnits() {
         getRoot().getChildren().add(getUser());
     }
+
+    /**
+     * initializes enemy spawns of a level.
+     * spawns enemyplanetwo.java.
+     * can spawn up to 12 enemies at a  time.
+     */
 
     @Override
     protected void spawnEnemyUnits() {
@@ -48,10 +75,20 @@ public class LevelOneTwo extends LevelParent {
         }
     }
 
+    /**
+     * instantiates level view, specifically the player hearts to display.
+     * @return
+     */
+
     @Override
     protected LevelView instantiateLevelView() {
         return new LevelView(getRoot(), getUser().getHealth());
     }
+
+    /**
+     * returns boolean which determines whether the level pass requirement is met.
+     * @return
+     */
 
     private boolean userHasReachedKillTarget() {
         return getUser().getNumberOfKills() >= KILLS_TO_ADVANCE;

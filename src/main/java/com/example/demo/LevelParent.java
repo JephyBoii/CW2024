@@ -11,7 +11,17 @@ import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.util.Duration;
 
+/**
+ * ultimate abstract class for all levels.
+ * contains all actors, ui elements, timeline progression, actor handling, user control, level view control.
+ * instantiates every level through controller.
+ */
+
 public abstract class LevelParent{
+
+	/**
+	 * listener interface for passing level name data and current user health value to controller to construct next level.
+	 */
 
 	public interface Listener {
 		void fetch(String Data, int health);
@@ -40,6 +50,16 @@ public abstract class LevelParent{
 	private final LevelView levelView;
 	private Listener listener;
 
+	/**
+	 * initializes all values and creates new group, scene, userplane and list of all actors categorized appropriately.
+	 * initializes the background, player health and level view (scene).
+	 * instantiates a new level view (scene) every level.
+	 * @param backgroundImageName
+	 * @param screenHeight
+	 * @param screenWidth
+	 * @param playerInitialHealth
+	 */
+
 	public LevelParent(String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
 		this.root = new Group();
 		this.scene = new Scene(root, screenWidth, screenHeight);
@@ -59,17 +79,44 @@ public abstract class LevelParent{
 		friendlyUnits.add(user);
 	}
 
+	/**
+	 * abstract function to initialize friendly units (user). called by all levels.
+	 */
+
 	protected abstract void initializeFriendlyUnits();
+
+	/**
+	 * abstract function which checks whether the game state has changed to a loss (user health decreased to 0) or win (level pass requirements achieved).
+	 */
 
 	protected abstract void checkIfGameOver();
 
+	/**
+	 * abstract function to spawn appropriate enemy units in their respective levels. called by all levels.
+	 */
+
 	protected abstract void spawnEnemyUnits();
 
+	/**#
+	 * abstract function to instantiate and return a level view appropriate to the level.
+	 * @return
+	 */
+
 	protected abstract LevelView instantiateLevelView();
+
+	/**
+	 * listener interface function to set a class which implements the interface as a listener.
+	 * @param listener
+	 */
 
 	public void setListener(Listener listener) {
 		this.listener = listener;
 	}
+
+	/**
+	 * initiallizes the background image, userplane image and heart display in the levelview of a level.
+	 * @return
+	 */
 
 	public Scene initializeScene() {
 		initializeBackground();
@@ -78,14 +125,28 @@ public abstract class LevelParent{
 		return scene;
 	}
 
+	/**
+	 * starts the game, displays the entire scene on top fo the stage and starts the timeline.
+	 */
+
 	public void startGame() {
 		background.requestFocus();
 		timeline.play();
 	}
 
+	/**
+	 * indicates to the listener class to go to a level, specified by the levelname data and passes user health value.
+	 * @param levelName
+	 */
+
 	public void goToNextLevel(String levelName) {
 		listener.fetch(levelName, user.getHealth());
 	}
+
+	/**
+	 * all changes which take place during a timeline update.
+	 * numerous actor handling takes place and level view is updates
+	 */
 
 	private void updateScene() {
 		spawnEnemyUnits();
@@ -101,11 +162,24 @@ public abstract class LevelParent{
 		generateUserFire();
 	}
 
+	/**
+	 * initializes the timeline to indefinitely update every 40 milliseconds delay.
+	 */
+
 	private void initializeTimeline() {
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		KeyFrame gameLoop = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> updateScene());
 		timeline.getKeyFrames().add(gameLoop);
 	}
+
+	/**
+	 * initializes background image in scene and handles user input reading.
+	 * when certain keys are pressed, userplane functions are called and a boolean keeps track of whether the plane is moving in a direction or not.
+	 * on key press, moving in their respective direction updates their boolean value.
+	 * on key release, as long as its opposing direction boolean is not true, the plane will stop moving.
+	 * otherwise, the user plane will continue to move in the direction of the last key press.
+	 * additionally, also handles projectile firing boolean, determining whether a new projectile should be fired at any given frame.
+	 */
 
 	private void initializeBackground() {
 		final boolean[] movingUp = {false};
@@ -139,9 +213,21 @@ public abstract class LevelParent{
 		root.getChildren().add(background);
 	}
 
+	/**
+	 * setter of boolean firing which determines whether user plane should be firing a projectile at a given frame.
+	 * @param fire
+	 */
+
 	private void fireProjectile(boolean fire) {
 		firing = fire;
 	}
+
+	/**
+	 * generates user projectile while boolean firing is true.
+	 * fires a projectile upon firing becoming true and firerate at 0.
+	 * fires in a burst of 2 projectiles with a 2 frame gap between them and a 10 frame gap between bursts.
+	 * will always fire bursts and cannot fire a single bullet.
+	 */
 
 	private void generateUserFire() {
 		if (fireRate == 0 && firing) {
@@ -160,9 +246,19 @@ public abstract class LevelParent{
 		}
 	}
 
+	/**
+	 * generates enemy fire by calling fireprojectile() in each enemy of enemyunit list.
+	 * affected by an individual enemy's firerate (chance to fire at any given frame).
+	 */
+
 	private void generateEnemyFire() {
 		enemyUnits.forEach(enemy -> spawnEnemyProjectile(((FighterPlane) enemy).fireProjectile()));
 	}
+
+	/**
+	 * passes the projectile image to the scene and adds this projectile to enemyprojectiles list.
+	 * @param projectile
+	 */
 
 	private void spawnEnemyProjectile(ActiveActorDestructible projectile) {
 		if (projectile != null) {
@@ -171,12 +267,21 @@ public abstract class LevelParent{
 		}
 	}
 
+	/**
+	 * call to update all actors contained in all actor lists.
+	 * calls updateactor() of every actor.
+	 */
+
 	private void updateActors() {
 		friendlyUnits.forEach(plane -> plane.updateActor());
 		enemyUnits.forEach(enemy -> enemy.updateActor());
 		userProjectiles.forEach(projectile -> projectile.updateActor());
 		enemyProjectiles.forEach(projectile -> projectile.updateActor());
 	}
+
+	/**
+	 * removes all actors which are destroyed (upon collision or health reaching 0) from the scene.
+	 */
 
 	private void removeAllDestroyedActors() {
 		removeDestroyedActors(friendlyUnits);
@@ -185,6 +290,11 @@ public abstract class LevelParent{
 		removeDestroyedActors(enemyProjectiles);
 	}
 
+	/**
+	 * removes a given actor which has its state set to destroyed from the scene.
+	 * @param actors
+	 */
+
 	private void removeDestroyedActors(List<ActiveActorDestructible> actors) {
 		List<ActiveActorDestructible> destroyedActors = actors.stream().filter(actor -> actor.isDestroyed())
 				.collect(Collectors.toList());
@@ -192,17 +302,41 @@ public abstract class LevelParent{
 		actors.removeAll(destroyedActors);
 	}
 
+	/**
+	 * handles collision between a user plane and enemy plane.
+	 * does not affect kill count.
+	 */
+
 	private void handlePlaneCollisions() {
 		handleCollisions(friendlyUnits, enemyUnits, false);
 	}
+
+	/**
+	 * handles collision between user projectile and enemy plane.
+	 * affects kill count which determines level progression.
+	 */
 
 	private void handleUserProjectileCollisions() {
 		handleCollisions(userProjectiles, enemyUnits, true);
 	}
 
+	/**
+	 * handles collision between enemy projectile and user plane.
+	 * does not affect kill count.
+	 */
+
 	private void handleEnemyProjectileCollisions() {
 		handleCollisions(enemyProjectiles, friendlyUnits, false);
 	}
+
+	/**
+	 * handles pairs of actors and their collisions.
+	 * both actors will take damage upon collision.
+	 * if count to kill boolean is true, the kill count of the user is incremented if a collision results in the enemyplane being destroyed.
+	 * @param actors1
+	 * @param actors2
+	 * @param countToKill
+	 */
 
 	private void handleCollisions(List<ActiveActorDestructible> actors1,
 			List<ActiveActorDestructible> actors2, boolean countToKill) {
@@ -220,60 +354,137 @@ public abstract class LevelParent{
 		}
 	}
 
+	/**
+	 * updates the level view, specifically the heart display of the player being updates to reflect the current user health.
+	 */
+
 	protected void updateLevelView() {
 		levelView.removeHearts(user.getHealth());
 	}
+
+	/**
+	 * returns level view.
+	 * used for level two's boss shield mechanic.
+	 * @return
+	 */
 
 	protected LevelView getLevelView() {
 		return levelView;
 	}
 
+	/**
+	 * handles an enemy being out of bounds vertically.
+	 * removes enemy if true.
+	 * @param enemy
+	 * @return
+	 */
+
 	private boolean enemyIsOutOfBounds(ActiveActorDestructible enemy) {
 		return Math.abs(enemy.getTranslateY()) > screenHeight + 300 || Math.abs(enemy.getTranslateY()) < -300;
 	}
+
+	/**
+	 * game win state, stops the timeline and sends data to the listener class to indicate to show the correct win screen.
+	 */
 
 	protected void winGame() {
 		timeline.stop();
 		listener.gameEnded(true);
 	}
 
+	/**
+	 * game lose state, stops the timeline and sends data to the listener class to indicate to show the correct lose screen.
+	 */
+
 	protected void loseGame() {
 		timeline.stop();
 		listener.gameEnded(false);
 	}
 
+	/**
+	 * returns the user when called.
+	 * used in various classes to check for kill count of the user and instantiate a new level view.
+	 * @return
+	 */
+
 	protected UserPlane getUser() {
 		return user;
 	}
+
+	/**
+	 * returns the root of the level parent.
+	 * used in various classes to add elements to the level view such as user heart display.
+	 * @return
+	 */
 
 	protected Group getRoot() {
 		return root;
 	}
 
+	/**
+	 * returns the current number of enemies in enemyunits list.
+	 * used to determine whether a new enemy should spawn or not.
+	 * @return
+	 */
+
 	protected int getCurrentNumberOfEnemies() {
 		return enemyUnits.size();
 	}
+
+	/**
+	 * adds a new enemy to enemyunits list and scene.
+	 * @param enemy
+	 */
 
 	protected void addEnemyUnit(ActiveActorDestructible enemy) {
 		enemyUnits.add(enemy);
 		root.getChildren().add(enemy);
 	}
 
+	/**
+	 * returns enemy maximum position value.
+	 * used in calculations for bounds of the enemy to spawn.
+	 * @return
+	 */
+
 	protected double getEnemyMaximumYPosition() {
 		return enemyMaximumYPosition;
 	}
+
+	/**
+	 * returns width of the screen.
+	 * used in various levels when spawning enemy planes to determine its initial x position.
+	 * @return
+	 */
 
 	protected double getScreenWidth() {
 		return screenWidth;
 	}
 
+	/**
+	 * returns height of the screen.
+	 * used in various levels when spawning enemy planes to determine its initial y position.
+	 * @return
+	 */
+
 	protected double getScreenHeight() {
 		return screenHeight;
 	}
 
+	/**
+	 * returns user state.
+	 * used when determining if a user loses the game.
+	 * @return
+	 */
+
 	protected boolean userIsDestroyed() {
 		return user.isDestroyed();
 	}
+
+	/**
+	 * handles enemies moving out of bounds vertically.
+	 * if true, destroys that enemy.
+	 */
 
 	private void handleEnemyOutOfBounds() {
 		for (ActiveActorDestructible enemy : enemyUnits) {

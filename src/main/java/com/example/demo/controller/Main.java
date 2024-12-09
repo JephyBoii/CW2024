@@ -6,12 +6,30 @@ import java.lang.reflect.InvocationTargetException;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * Main, where the program starts and runs.
+ * instantiates a new controller and passes a new stage
+ */
+
 public class Main extends Application {
 
 	private static final int SCREEN_WIDTH = 1300;
 	private static final int SCREEN_HEIGHT = 750;
 	private static final String TITLE = "Fly to the North Pole in a car and defeat Santa Claus because he gave you coal for Christmas";
 	private Controller myController;
+
+	/**
+	 * Begins the whole program
+	 * @param stage
+	 * @throws ClassNotFoundException
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 * @throws IOException
+	 */
 
 	@Override
 	public void start(Stage stage) throws ClassNotFoundException, NoSuchMethodException, SecurityException,

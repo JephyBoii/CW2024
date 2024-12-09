@@ -1,5 +1,9 @@
 package com.example.demo;
 
+/**
+ * class extending fighterplane. enemy which spawns in level one and level two two. fires enemyprojectile.java.
+ */
+
 public class EnemyPlane extends FighterPlane {
 
 	private static final String IMAGE_NAME = "enemyplane.png";
@@ -20,11 +24,28 @@ public class EnemyPlane extends FighterPlane {
 	private final boolean isTopSpawn;
 	private double b = 0;
 
+	/**
+	 * initializes values by passing to superclass and has a random spawn position in the scene as well as an initial spawn on top or below the visible screen
+	 * @param initialXPos
+	 * @param initialYPos
+	 * @param spawnPositionY
+	 */
+
 	public EnemyPlane(double initialXPos, double initialYPos, double spawnPositionY) {
 		super(IMAGE_NAME, IMAGE_HEIGHT, initialXPos - 100*Math.random(), spawnPositionY, INITIAL_HEALTH);
 		ENTRY_Y_POSITION = initialYPos;
 		isTopSpawn = spawnPositionY < ZERO;
 	}
+
+	/**
+	 * function which updates the current position of the plane.
+	 * the pattern that the plane goes is as follows:
+	 * 0. plane spawns either at the top or bottom of the viewable stage.
+	 * 1. the plane will continue to move horizontally for a random time between 0 and 200 frames.
+	 * 2. once the time the plane has been alive surpasses its entry time, the plane calls enterstage() function from its respective inital position.
+	 * 3. after reaching its supposed position it will continue to move horizontally until its time alive surpasses its exit time (100 frames after entry time).
+	 * 4. the exit stage function is called and the plane exits the viewable scene
+	 */
 
 	@Override
 	public void updatePosition() {
@@ -45,6 +66,11 @@ public class EnemyPlane extends FighterPlane {
 		}
 	}
 
+	/**
+	 * function used to fire an enemyprojectile.java when its probability allows it to.
+	 * @return
+	 */
+
 	@Override
 	public ActiveActorDestructible fireProjectile() {
 		if (Math.random() < FIRE_RATE) {
@@ -55,16 +81,32 @@ public class EnemyPlane extends FighterPlane {
 		return null;
 	}
 
+	/**
+	 * function called by LevelParent.java to update position of actor
+	 */
+
 	@Override
 	public void updateActor() {
 		updatePosition();
 	}
+
+	/**
+	 * boolean which returns whether the plane initially spawned on top or below the screen. used for enterstage() and exitstage() function to correctly move the plane.
+	 * @param isTop
+	 * @return
+	 */
 
 	private boolean notAtPosition(boolean isTop) {
 		if (isTop && getPositionY()<ENTRY_Y_POSITION) {
 			return true;
 		} else return !isTop && getPositionY() > ENTRY_Y_POSITION;
 	}
+
+	/**
+	 * entry movement following initial spawn and wait. changes depending on whether it spawned on top or the bottom of the screen.
+	 * enters rapidly while decelerating constantly until constantly moving into position.
+	 * @param isTop
+	 */
 
 	private void enterStage(boolean isTop) {
 		if (isTop) {
@@ -75,6 +117,12 @@ public class EnemyPlane extends FighterPlane {
 			moveVertically(-VERTICAL_VELOCITY + a/30);
 		}
 	}
+
+	/**
+	 * exit movement following its exit time pass requirement. changes depending on whether it spawned on top or the bottom of the screen.
+	 * slowly moves vertically while constantly accelerating to its maximum velocity and exiting the visible screen.
+	 * @param isTop
+	 */
 
 	private void exitStage(boolean isTop) {
 		if (isTop) {
@@ -93,6 +141,11 @@ public class EnemyPlane extends FighterPlane {
 			}
 		}
 	}
+
+	/**
+	 * returns the current y position of the plane. used in various calculations for movement, entry and exit phase.
+	 * @return
+	 */
 
 	private double getPositionY() {
 		return getLayoutY()+ getTranslateY();
