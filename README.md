@@ -10,8 +10,9 @@ however, the basic functionality of the game remains the same, the game has been
 ## compilation inctructions
 
 1. open the source code on your preferred IDE
-2. find and select the Main.java class
-3. run it
+2. have javafx installed and set up on the IDE
+3. find and select the Main.java class
+4. run it
 
 ## implemented and working properly
 
