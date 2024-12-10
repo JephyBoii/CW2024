@@ -13,6 +13,7 @@ public class WinImage extends ImageView {
 
 	/**
 	 * instantiates the image with the image name, its dimensions and various properties of the image.
+	 * <br><img src="doc-files/WinImageA.png" alt="image" height="160">
 	 */
 	
 	public WinImage() {

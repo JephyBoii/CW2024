@@ -33,6 +33,7 @@ public class Controller implements LevelParent.Listener, MenuScreen.Listener {
 
 	/**
 	 * shows the stage and displays the first scene: the main menu
+	 * <br><img src="doc-files/ControllerA.png" alt="image" height="100">
 	 * @throws SecurityException
 	 * @throws IllegalArgumentException
 	 */
@@ -48,6 +49,7 @@ public class Controller implements LevelParent.Listener, MenuScreen.Listener {
 
 	/**
 	 * the call to instantiate a new level, takes data that is the class name, calls its constructor and passes appropriate values (health). sets the scene and begins the level.
+	 * <br><img src="doc-files/ControllerB.png" alt="image" height="45">
 	 * @param className name of the class of the level for its constructor to be called in the function.
 	 * @param health value for the player health, carries over between levels.
 	 * @throws ClassNotFoundException
@@ -73,6 +75,7 @@ public class Controller implements LevelParent.Listener, MenuScreen.Listener {
 
 	/**
 	 * called by listened classes StartMenu.java and LevelParent.java. passes the next level name from those classes.
+	 * <br><img src="doc-files/ControllerC.png" alt="image" height="50">
 	 * @param data name of the class of the level for its constructor to be called in the function.
 	 * @param health value for the player health, carries over between levels.
 	 */

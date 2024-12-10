@@ -149,6 +149,7 @@ public abstract class LevelParent{
 
 	/**
 	 * indicates to the listener class to go to a level, specified by the levelname data and passes user health value.
+	 * <br><img src="doc-files/LevelParentA.png" alt="image" height="70">
 	 * @param levelName string of the name of the level to be called.
 	 */
 
@@ -192,6 +193,7 @@ public abstract class LevelParent{
 	 * on key release, as long as its opposing direction boolean is not true, the plane will stop moving.
 	 * otherwise, the user plane will continue to move in the direction of the last key press.
 	 * additionally, also handles projectile firing boolean, determining whether a new projectile should be fired at any given frame.
+	 * <br><img src="doc-files/LevelParentB.png" alt="image" height="400">
 	 */
 
 	private void initializeBackground() {
@@ -240,6 +242,7 @@ public abstract class LevelParent{
 	 * fires a projectile upon firing becoming true and firerate at 0.
 	 * fires in a burst of 2 projectiles with a 2 frame gap between them and a 10 frame gap between bursts.
 	 * will always fire bursts and cannot fire a single bullet.
+	 * <br><img src="doc-files/LevelParentC.png" alt="image" height="230">
 	 */
 
 	private void generateUserFire() {
@@ -407,6 +410,7 @@ public abstract class LevelParent{
 
 	/**
 	 * game lose state, stops the timeline and sends data to the listener class to indicate to show the correct lose screen.
+	 * <br><img src="doc-files/LevelParentD.png" alt="image" height="70">
 	 */
 
 	protected void loseGame() {

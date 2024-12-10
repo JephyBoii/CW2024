@@ -24,6 +24,7 @@ public class UserProjectile extends Projectile {
 
 	/**
 	 * updates the current position of the bullet, initially moving at a velocity of 10 while accelerating rapidly until max velocity.
+	 * <br><img src="doc-files/UserProjectileA.png" alt="image" height="200">
 	 */
 
 	@Override

@@ -20,6 +20,7 @@ public class LevelView {
 	/**
 	 * instantiates the level with a root to work with and integer of hearts to display.
 	 * instantiates a heart display and shield image class with the positions.
+	 * <br><img src="doc-files/LevelViewA.png" alt="image" height="80">
 	 * @param root group (for all images used and) sent from levelparent.
 	 * @param heartsToDisplay user health value.
 	 */
@@ -53,6 +54,7 @@ public class LevelView {
 	/**
 	 * function to show boss shield when necessary.
 	 * called when the boss shield should be activated.
+	 * <br><img src="doc-files/LevelViewB.png" alt="image" height="300">
 	 */
 
 	public void showShield() {

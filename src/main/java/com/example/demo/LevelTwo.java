@@ -36,6 +36,7 @@ public class LevelTwo extends LevelParent {
 	 * checks whether the game is over (pass requirement achieved or player health drops to 0) every update.
 	 * attached is a variable to ensure losegame() or gotonextlevel() function can only be called once.
 	 * once the level pass requirement is met, calls a function to go to next level, passing the levelname of the next level.
+	 * <br><img src="doc-files/LevelTwoA.png" alt="image" height="230">
 	 */
 
 	@Override
@@ -78,6 +79,7 @@ public class LevelTwo extends LevelParent {
 
 	/**
 	 * updates level view to reflect whether boss shield should be displayed and updates user heart display.
+	 * <br><img src="doc-files/LevelTwoB.png" alt="image" height="200">
 	 */
 
 	@Override

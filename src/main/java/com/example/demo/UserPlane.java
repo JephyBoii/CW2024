@@ -32,6 +32,7 @@ public class UserPlane extends FighterPlane {
 	/**
 	 * changes various x and y values of the plane's current position and horizontal and vertical velocity.
 	 * ensures with the x/y upper/lower bounds that the plane will never exit the viewable scene.
+	 * <br><img src="doc-files/UserPlaneA.png" alt="image" height="240">
 	 */
 	
 	@Override
@@ -82,6 +83,7 @@ public class UserPlane extends FighterPlane {
 
 	/**
 	 * setter which changes vertical velocity to an upward value.
+	 * <br><img src="doc-files/UserPlaneB.png" alt="image" height="500">
 	 */
 
 	public void moveUp() { VERTICAL_VELOCITY = -8; }

@@ -28,6 +28,7 @@ public class LevelOne extends LevelParent {
 	 * checks whether the game is over (pass requirement achieved or player health drops to 0) every update.
 	 * attached is a variable to ensure losegame() or gotonextlevel() function can only be called once.
 	 * once the level pass requirement is met, calls a function to go to next level, passing the levelname of the next level.
+	 * <br><img src="doc-files/LevelOneA.png" alt="image" height="200">
 	 */
 
 	@Override
@@ -58,6 +59,7 @@ public class LevelOne extends LevelParent {
 	 * initializes enemy spawns of a level.
 	 * spawns enemyplane.java.
 	 * can spawn up to 10 enemies at a  time.
+	 * <br><img src="doc-files/LevelOneB.png" alt="image" height="200">
 	 */
 
 	@Override

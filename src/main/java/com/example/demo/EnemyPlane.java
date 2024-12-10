@@ -26,6 +26,7 @@ public class EnemyPlane extends FighterPlane {
 
 	/**
 	 * initializes values by passing to superclass and has a random spawn position in the scene as well as an initial spawn on top or below the visible screen
+	 * <br><img src="doc-files/EnemyPlaneA.png" alt="image" height="70">
 	 * @param initialXPos initial x position for image view to place its image relative to the scene.
 	 * @param initialYPos initial y position for image view to place its image relative to the scene.
 	 * @param spawnPositionY actual y position for spawn of plane. passed as initial y position to superclass.
@@ -45,6 +46,7 @@ public class EnemyPlane extends FighterPlane {
 	 * 2. once the time the plane has been alive surpasses its entry time, the plane calls enterstage() function from its respective inital position.
 	 * 3. after reaching its supposed position it will continue to move horizontally until its time alive surpasses its exit time (100 frames after entry time).
 	 * 4. the exit stage function is called and the plane exits the viewable scene
+	 * <br><img src="doc-files/EnemyPlaneB.png" alt="image" height="200">
 	 */
 
 	@Override
@@ -94,6 +96,7 @@ public class EnemyPlane extends FighterPlane {
 	 * boolean which returns whether the plane initially spawned on top or below the screen. used for enterstage() and exitstage() function to correctly move the plane.
 	 * @param isTop determines whether it spawns on top or bottom of the screen.
 	 * @return boolean determining if a plane is at its entry position yet or not.
+	 * <br><img src="doc-files/EnemyPlaneC.png" alt="image" height="100">
 	 */
 
 	private boolean notAtPosition(boolean isTop) {
@@ -105,6 +108,7 @@ public class EnemyPlane extends FighterPlane {
 	/**
 	 * entry movement following initial spawn and wait. changes depending on whether it spawned on top or the bottom of the screen.
 	 * enters rapidly while decelerating constantly until constantly moving into position.
+	 * <br><img src="doc-files/EnemyPlaneD.png" alt="image" height="200">
 	 * @param isTop determines whether it spawns on top or bottom of the screen.
 	 */
 
@@ -121,6 +125,7 @@ public class EnemyPlane extends FighterPlane {
 	/**
 	 * exit movement following its exit time pass requirement. changes depending on whether it spawned on top or the bottom of the screen.
 	 * slowly moves vertically while constantly accelerating to its maximum velocity and exiting the visible screen.
+	 * <br><img src="doc-files/EnemyPlaneE.png" alt="image" height="300">
 	 * @param isTop determines whether it spawns on top or bottom of the screen.
 	 */
 
