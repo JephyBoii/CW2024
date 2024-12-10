@@ -1,11 +1,10 @@
-# 1942 game: rafactored
+# 1942 game: refactored
 github repository link: https://github.com/JephyBoii/CW2024
 
-## introduction and proejct description
+## introduction and project description
 
 the game involves moving up and down on the left side of the screen with enemies spawning on the right side of the screen.
-in my refafactored version, numerous additions were implemented and various aspects werer modified or completely changed.
-however, the basic functionality of the game remains the same, the game has been almost completely reworked and improved.
+in my refafactored version, numerous additions were implemented and various aspects were modified or completely changed.
 
 ## compilation inctructions
 
@@ -57,6 +56,14 @@ not implemented due to time constraints.
 
 ### resizable/resized window
 ability to resize the window to the user's content or fullscreen for better view.
+not implemented due to time constraints.
+
+### score system
+a score to be displayed during the game and at the win or lose screen.
+not implemented due to time constraints.
+
+### new user projectile
+another projectile for the user to fire, taking time to charge up and firing multiple bullets across the screen.
 not implemented due to time constraints.
 
 ## new java classes
