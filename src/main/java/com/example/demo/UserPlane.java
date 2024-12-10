@@ -22,7 +22,7 @@ public class UserPlane extends FighterPlane {
 
 	/**
 	 * passes values to initialize the class to the superclass.
-	 * @param initialHealth
+	 * @param initialHealth health value of the user plane passed to the figherplane superclass.
 	 */
 
 	public UserPlane(int initialHealth) {
@@ -63,7 +63,7 @@ public class UserPlane extends FighterPlane {
 
 	/**
 	 * fires a userprojectile.java at its offest position relative to the user position.
-	 * @return
+	 * @return a projectile of type userprojectile.java, spawns at its offset values to the plane.
 	 */
 	
 	@Override
@@ -73,7 +73,7 @@ public class UserPlane extends FighterPlane {
 
 	/**
 	 * returns boolean determining whether the plane currently has a horizontal or vertical velocity.
-	 * @return
+	 * @return true or false value.
 	 */
 
 	private boolean isMoving() {
@@ -118,7 +118,7 @@ public class UserPlane extends FighterPlane {
 
 	/**
 	 * returns the number of kills the plane has in order to compare to the pass requirement of levelone.java and levelonetwo.java
-	 * @return
+	 * @return number of kills value.
 	 */
 
 	public int getNumberOfKills() {

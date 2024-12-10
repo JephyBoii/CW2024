@@ -12,10 +12,10 @@ public abstract class ActiveActor extends ImageView {
 
 	/**
 	 * takes arious values to build an actor and position them correctly within a scene (level)
-	 * @param imageName
-	 * @param imageHeight
-	 * @param initialXPos
-	 * @param initialYPos
+	 * @param imageName name of the image for this image view to set its image to. passed from various actors.
+	 * @param imageHeight height of the image for image view to set its image to.
+	 * @param initialXPos initial x position for image view to place its image relative to the scene.
+	 * @param initialYPos initial y position for image view to place its image relative to the scene.
 	 */
 
 	public ActiveActor(String imageName, int imageHeight, double initialXPos, double initialYPos) {
@@ -35,7 +35,7 @@ public abstract class ActiveActor extends ImageView {
 
 	/**
 	 * basic horizontal movement function. sets an actors position to a new position and is affected everything updatePosition() is called.
-	 * @param horizontalMove
+	 * @param horizontalMove translates an actor's current x position relative to the scene with this value.
 	 */
 
 	protected void moveHorizontally(double horizontalMove) {
@@ -44,7 +44,7 @@ public abstract class ActiveActor extends ImageView {
 
 	/**
 	 * basic vertical movement function.
-	 * @param verticalMove
+	 * @param verticalMove translates an actor's current y position relative to the scene with this value.
 	 */
 
 	protected void moveVertically(double verticalMove) {

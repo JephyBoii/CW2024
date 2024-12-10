@@ -63,7 +63,7 @@ public class BossTwo extends FighterPlane {
 
     /**
      * function to fire a bossprojectiletwo.java
-     * @return
+     * @return a projectile of type bossprojectiletwo.java, spawns at an offset to the plane.
      */
 
     @Override
@@ -96,7 +96,7 @@ public class BossTwo extends FighterPlane {
 
     /**
      * returns the next move for the boss to move by looking through the shuffled list of movement pattern and determining how often certain moves should be repeated before switching to the next move
-     * @return
+     * @return list of shuffled movement patterns.
      */
 
     private int getNextMove() {
@@ -115,7 +115,7 @@ public class BossTwo extends FighterPlane {
 
     /**
      * determines whether the boss will fire at any given frame
-     * @return
+     * @return boolean determining a boss' fire rate.
      */
 
     private boolean bossFiresInCurrentFrame() {
@@ -124,7 +124,7 @@ public class BossTwo extends FighterPlane {
 
     /**
      * returns the position relative to the boss that its projectile should fire
-     * @return
+     * @return projectile y offset position relative to the plane.
      */
 
     private double getProjectileInitialPosition() {

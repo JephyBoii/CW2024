@@ -16,7 +16,7 @@ public class BossProjectileTwo extends Projectile {
 
     /**
      * initializes values which are passed to the superclass
-     * @param initialYPos
+     * @param initialYPos initial y position for image view to place its image relative to the scene.
      */
 
     public BossProjectileTwo(double initialYPos) {

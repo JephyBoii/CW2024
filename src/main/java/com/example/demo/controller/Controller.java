@@ -24,7 +24,7 @@ public class Controller implements LevelParent.Listener, MenuScreen.Listener {
 
 	/**
 	 *declares the stage
-	 * @param stage
+	 * @param stage takes a stage from main. primary display of window.
 	 */
 
 	public Controller(Stage stage) {
@@ -48,8 +48,8 @@ public class Controller implements LevelParent.Listener, MenuScreen.Listener {
 
 	/**
 	 * the call to instantiate a new level, takes data that is the class name, calls its constructor and passes appropriate values (health). sets the scene and begins the level.
-	 * @param className
-	 * @param health
+	 * @param className name of the class of the level for its constructor to be called in the function.
+	 * @param health value for the player health, carries over between levels.
 	 * @throws ClassNotFoundException
 	 * @throws NoSuchMethodException
 	 * @throws SecurityException
@@ -73,8 +73,8 @@ public class Controller implements LevelParent.Listener, MenuScreen.Listener {
 
 	/**
 	 * called by listened classes StartMenu.java and LevelParent.java. passes the next level name from those classes.
-	 * @param data
-	 * @param health
+	 * @param data name of the class of the level for its constructor to be called in the function.
+	 * @param health value for the player health, carries over between levels.
 	 */
 
 	@Override
@@ -95,7 +95,7 @@ public class Controller implements LevelParent.Listener, MenuScreen.Listener {
 
 	/**
 	 * called LevelParent.java to set the scene to a win or lose menu screen. passes a boolean to decide which screen to display.
-	 * @param n
+	 * @param n boolean determining whether the menu should display a win or loss screen.
 	 */
 
 	@Override

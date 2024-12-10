@@ -69,7 +69,7 @@ public class Boss extends FighterPlane {
 
 	/**
 	 * function to fire a bossprojectile.java
-	 * @return
+	 * @return a projectile of type bossprojectile.java, spawns at an offset to the plane.
 	 */
 
 	@Override
@@ -114,7 +114,7 @@ public class Boss extends FighterPlane {
 
 	/**
 	 * returns the next move for the boss to move by looking through the shuffled list of movement pattern and determining how often certain moves should be repeated before switching to the next move
-	 * @return
+	 * @return list of shuffled movement patterns.
 	 */
 
 	private int getNextMove() {
@@ -133,7 +133,7 @@ public class Boss extends FighterPlane {
 
 	/**
 	 * determines whether the boss will fire at any given frame
-	 * @return
+	 * @return boolean determining a boss' fire rate.
 	 */
 
 	private boolean bossFiresInCurrentFrame() {
@@ -142,7 +142,7 @@ public class Boss extends FighterPlane {
 
 	/**
 	 * returns the position relative to the boss that its projectile should fire
-	 * @return
+	 * @return projectile y offset position relative to the plane.
 	 */
 
 	private double getProjectileInitialPosition() {
@@ -151,7 +151,7 @@ public class Boss extends FighterPlane {
 
 	/**
 	 * determines at any given frame whether the boss' shield should be activated or not
-	 * @return
+	 * @return boolean determining a boss' shield activation probability
 	 */
 
 	private boolean shieldShouldBeActivated() {
@@ -160,7 +160,7 @@ public class Boss extends FighterPlane {
 
 	/**
 	 * returns a boolean which could be less or equal to the number of frames that the shield has been activated since activation
-	 * @return
+	 * @return boolean determining a boss' shield time since activation.
 	 */
 
 	private boolean shieldExhausted() {
@@ -186,7 +186,7 @@ public class Boss extends FighterPlane {
 
 	/**
 	 * returns the value for which the shield is activated or not
-	 * @return
+	 * @return boolean determining whether a boss' shield is activated or not.
 	 */
 
 	public boolean checkShield() {

@@ -26,9 +26,9 @@ public class EnemyPlane extends FighterPlane {
 
 	/**
 	 * initializes values by passing to superclass and has a random spawn position in the scene as well as an initial spawn on top or below the visible screen
-	 * @param initialXPos
-	 * @param initialYPos
-	 * @param spawnPositionY
+	 * @param initialXPos initial x position for image view to place its image relative to the scene.
+	 * @param initialYPos initial y position for image view to place its image relative to the scene.
+	 * @param spawnPositionY actual y position for spawn of plane. passed as initial y position to superclass.
 	 */
 
 	public EnemyPlane(double initialXPos, double initialYPos, double spawnPositionY) {
@@ -68,7 +68,7 @@ public class EnemyPlane extends FighterPlane {
 
 	/**
 	 * function used to fire an enemyprojectile.java when its probability allows it to.
-	 * @return
+	 * @return a projectile of type enemyprojectile.java, spawns at its offset values to the plane.
 	 */
 
 	@Override
@@ -82,7 +82,7 @@ public class EnemyPlane extends FighterPlane {
 	}
 
 	/**
-	 * function called by LevelParent.java to update position of actor
+	 * function called by LevelParent.java to update position of actor.
 	 */
 
 	@Override
@@ -92,8 +92,8 @@ public class EnemyPlane extends FighterPlane {
 
 	/**
 	 * boolean which returns whether the plane initially spawned on top or below the screen. used for enterstage() and exitstage() function to correctly move the plane.
-	 * @param isTop
-	 * @return
+	 * @param isTop determines whether it spawns on top or bottom of the screen.
+	 * @return boolean determining if a plane is at its entry position yet or not.
 	 */
 
 	private boolean notAtPosition(boolean isTop) {
@@ -105,7 +105,7 @@ public class EnemyPlane extends FighterPlane {
 	/**
 	 * entry movement following initial spawn and wait. changes depending on whether it spawned on top or the bottom of the screen.
 	 * enters rapidly while decelerating constantly until constantly moving into position.
-	 * @param isTop
+	 * @param isTop determines whether it spawns on top or bottom of the screen.
 	 */
 
 	private void enterStage(boolean isTop) {
@@ -121,7 +121,7 @@ public class EnemyPlane extends FighterPlane {
 	/**
 	 * exit movement following its exit time pass requirement. changes depending on whether it spawned on top or the bottom of the screen.
 	 * slowly moves vertically while constantly accelerating to its maximum velocity and exiting the visible screen.
-	 * @param isTop
+	 * @param isTop determines whether it spawns on top or bottom of the screen.
 	 */
 
 	private void exitStage(boolean isTop) {
@@ -144,7 +144,7 @@ public class EnemyPlane extends FighterPlane {
 
 	/**
 	 * returns the current y position of the plane. used in various calculations for movement, entry and exit phase.
-	 * @return
+	 * @return current y position of plane relative  to the scene.
 	 */
 
 	private double getPositionY() {

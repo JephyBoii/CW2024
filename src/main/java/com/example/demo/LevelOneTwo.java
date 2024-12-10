@@ -15,9 +15,9 @@ public class LevelOneTwo extends LevelParent {
 
     /**
      * called by controller.java, passing background image name, screen dimensions and player health.
-     * @param screenHeight
-     * @param screenWidth
-     * @param health
+     * @param screenHeight height of the scene/background image.
+     * @param screenWidth width of the scene/background image.
+     * @param health initial health value of user plane.
      */
 
     public LevelOneTwo(double screenHeight, double screenWidth, int health) {
@@ -77,7 +77,7 @@ public class LevelOneTwo extends LevelParent {
 
     /**
      * instantiates level view, specifically the player hearts to display.
-     * @return
+     * @return level view of the level
      */
 
     @Override
@@ -87,7 +87,7 @@ public class LevelOneTwo extends LevelParent {
 
     /**
      * returns boolean which determines whether the level pass requirement is met.
-     * @return
+     * @return boolean determining whether a user has passed level pass requirement.
      */
 
     private boolean userHasReachedKillTarget() {

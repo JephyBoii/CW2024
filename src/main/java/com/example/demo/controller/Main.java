@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 /**
  * Main, where the program starts and runs.
- * instantiates a new controller and passes a new stage
+ * instantiates a new controller and passes a new stage.
  */
 
 public class Main extends Application {
@@ -19,8 +19,8 @@ public class Main extends Application {
 	private Controller myController;
 
 	/**
-	 * Begins the whole program
-	 * @param stage
+	 * Begins the whole program. sets the stage (window) height and width, its title and disables resizing the stage.
+	 * @param stage the main stage (window) of the entire program.
 	 * @throws ClassNotFoundException
 	 * @throws NoSuchMethodException
 	 * @throws SecurityException
@@ -41,6 +41,11 @@ public class Main extends Application {
 		myController = new Controller(stage);
 		myController.launchGame();
 	}
+
+	/**
+	 * main, starts the program by calling launch() from application.
+	 * @param args standard main method.
+	 */
 
 	public static void main(String[] args) {
 		launch();

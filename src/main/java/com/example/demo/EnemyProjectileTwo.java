@@ -15,8 +15,8 @@ public class EnemyProjectileTwo extends Projectile {
 
     /**
      * initializes values by passing to superclass.
-     * @param initialXPos
-     * @param initialYPos
+     * @param initialXPos initial x position for image view to place its image relative to the scene.
+     * @param initialYPos initial y position for image view to place its image relative to the scene.
      */
 
     public EnemyProjectileTwo(double initialXPos, double initialYPos) {
@@ -38,7 +38,7 @@ public class EnemyProjectileTwo extends Projectile {
     }
 
     /**
-     * calledd by LevelParent.java to update the position of the projectile.
+     * called by LevelParent.java to update the position of the projectile.
      */
 
     @Override

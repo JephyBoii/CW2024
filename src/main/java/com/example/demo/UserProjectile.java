@@ -14,8 +14,8 @@ public class UserProjectile extends Projectile {
 
 	/**
 	 * initializes the class by passing values to  the superclass.
-	 * @param initialXPos
-	 * @param initialYPos
+	 * @param initialXPos initial x position for image view to place its image relative to the scene.
+	 * @param initialYPos initial y position for image view to place its image relative to the scene.
 	 */
 
 	public UserProjectile(double initialXPos, double initialYPos) {

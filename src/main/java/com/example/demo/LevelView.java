@@ -20,8 +20,8 @@ public class LevelView {
 	/**
 	 * instantiates the level with a root to work with and integer of hearts to display.
 	 * instantiates a heart display and shield image class with the positions.
-	 * @param root
-	 * @param heartsToDisplay
+	 * @param root group (for all images used and) sent from levelparent.
+	 * @param heartsToDisplay user health value.
 	 */
 	
 	public LevelView(Group root, int heartsToDisplay) {
@@ -40,7 +40,7 @@ public class LevelView {
 
 	/**
 	 * function to appropriately adjust player heart display to reflect change in player health.
-	 * @param heartsRemaining
+	 * @param heartsRemaining number of hearts to be displayed by heart container.
 	 */
 
 	public void removeHearts(int heartsRemaining) {

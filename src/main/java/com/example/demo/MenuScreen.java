@@ -19,6 +19,13 @@ public class MenuScreen {
      */
 
     public interface Listener {
+
+        /**
+         * used by listened class to send a string data and health integer value to listener class.
+         * @param Data name of level.
+         * @param health user health value.
+         */
+
         void fetch(String Data, int health);
     }
     private Listener listener;
@@ -36,8 +43,8 @@ public class MenuScreen {
     /**
      * instantiates the menuscreen class by passing initial health and level name values.
      * creates a new group and scene as well as images for the main, win and lose menu screen.
-     * @param levelName
-     * @param health
+     * @param levelName name of first level to be called when event occurs.
+     * @param health initial user health value to be set for level instantiation.
      */
 
     public MenuScreen(String levelName, int health){
@@ -74,7 +81,7 @@ public class MenuScreen {
 
     /**
      * sets an implementing class as a listener of the interface.
-     * @param listener
+     * @param listener assigns as a listener to the implementing class.
      */
 
     public void setMenuListener(MenuScreen.Listener listener) {
@@ -87,8 +94,8 @@ public class MenuScreen {
      * restart game takes user to first level.
      * exit game exits the program.
      * buttons manually positioned and styled.
-     * @param n
-     * @return
+     * @param n determines whether a win or loss screen should be displayed.
+     * @return win or loss screen scene.
      */
 
     public Scene getEnd(boolean n) {
@@ -126,7 +133,7 @@ public class MenuScreen {
      * start game take user to first level.
      * exit game exits the program.
      * buttons are manually positioned and styled.
-     * @return
+     * @return main menu screen scene.
      */
 
     public Scene getStart() {

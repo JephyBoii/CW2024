@@ -24,7 +24,20 @@ public abstract class LevelParent{
 	 */
 
 	public interface Listener {
+
+		/**
+		 * used by listened class to send a string data and health integer value to listener class.
+		 * @param Data name of level.
+		 * @param health user health value.
+		 */
+
 		void fetch(String Data, int health);
+
+		/**
+		 * used by listened class to send a signal to instantiate a menu screen display with a loss or win screen.
+		 * @param n determines win(true) or loss(false) screeen to be displayed.
+		 */
+
 		void gameEnded(boolean n);
 	}
 
@@ -54,10 +67,10 @@ public abstract class LevelParent{
 	 * initializes all values and creates new group, scene, userplane and list of all actors categorized appropriately.
 	 * initializes the background, player health and level view (scene).
 	 * instantiates a new level view (scene) every level.
-	 * @param backgroundImageName
-	 * @param screenHeight
-	 * @param screenWidth
-	 * @param playerInitialHealth
+	 * @param backgroundImageName image name to be  used as scene background image.
+	 * @param screenHeight height of the scene/background image.
+	 * @param screenWidth width of the scene/background image.
+	 * @param playerInitialHealth initial health of the user.
 	 */
 
 	public LevelParent(String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
@@ -99,14 +112,14 @@ public abstract class LevelParent{
 
 	/**#
 	 * abstract function to instantiate and return a level view appropriate to the level.
-	 * @return
+	 * @return an instantiated level view for each level.
 	 */
 
 	protected abstract LevelView instantiateLevelView();
 
 	/**
 	 * listener interface function to set a class which implements the interface as a listener.
-	 * @param listener
+	 * @param listener assigns as a listener to the implementing class.
 	 */
 
 	public void setListener(Listener listener) {
@@ -115,7 +128,7 @@ public abstract class LevelParent{
 
 	/**
 	 * initiallizes the background image, userplane image and heart display in the levelview of a level.
-	 * @return
+	 * @return a scene with level view initialized (background set, user spawned and hearts displayed).
 	 */
 
 	public Scene initializeScene() {
@@ -136,7 +149,7 @@ public abstract class LevelParent{
 
 	/**
 	 * indicates to the listener class to go to a level, specified by the levelname data and passes user health value.
-	 * @param levelName
+	 * @param levelName string of the name of the level to be called.
 	 */
 
 	public void goToNextLevel(String levelName) {
@@ -215,7 +228,7 @@ public abstract class LevelParent{
 
 	/**
 	 * setter of boolean firing which determines whether user plane should be firing a projectile at a given frame.
-	 * @param fire
+	 * @param fire sets variable firing to this value.
 	 */
 
 	private void fireProjectile(boolean fire) {
@@ -257,7 +270,7 @@ public abstract class LevelParent{
 
 	/**
 	 * passes the projectile image to the scene and adds this projectile to enemyprojectiles list.
-	 * @param projectile
+	 * @param projectile projectile from enemy to be added to scene.
 	 */
 
 	private void spawnEnemyProjectile(ActiveActorDestructible projectile) {
@@ -292,7 +305,7 @@ public abstract class LevelParent{
 
 	/**
 	 * removes a given actor which has its state set to destroyed from the scene.
-	 * @param actors
+	 * @param actors list of actors for function to affect.
 	 */
 
 	private void removeDestroyedActors(List<ActiveActorDestructible> actors) {
@@ -333,9 +346,9 @@ public abstract class LevelParent{
 	 * handles pairs of actors and their collisions.
 	 * both actors will take damage upon collision.
 	 * if count to kill boolean is true, the kill count of the user is incremented if a collision results in the enemyplane being destroyed.
-	 * @param actors1
-	 * @param actors2
-	 * @param countToKill
+	 * @param actors1 first list of actors to compare collision between.
+	 * @param actors2 second list of actors to compare collision between.
+	 * @param countToKill determines if the collision will affect kill count.
 	 */
 
 	private void handleCollisions(List<ActiveActorDestructible> actors1,
@@ -365,7 +378,7 @@ public abstract class LevelParent{
 	/**
 	 * returns level view.
 	 * used for level two's boss shield mechanic.
-	 * @return
+	 * @return the level view of the current level.
 	 */
 
 	protected LevelView getLevelView() {
@@ -375,8 +388,8 @@ public abstract class LevelParent{
 	/**
 	 * handles an enemy being out of bounds vertically.
 	 * removes enemy if true.
-	 * @param enemy
-	 * @return
+	 * @param enemy any enemy actor at a given time.
+	 * @return boolean determining whether the actor is out of bounds or not.
 	 */
 
 	private boolean enemyIsOutOfBounds(ActiveActorDestructible enemy) {
@@ -404,7 +417,7 @@ public abstract class LevelParent{
 	/**
 	 * returns the user when called.
 	 * used in various classes to check for kill count of the user and instantiate a new level view.
-	 * @return
+	 * @return the user plane actor.
 	 */
 
 	protected UserPlane getUser() {
@@ -414,7 +427,7 @@ public abstract class LevelParent{
 	/**
 	 * returns the root of the level parent.
 	 * used in various classes to add elements to the level view such as user heart display.
-	 * @return
+	 * @return group of the scene.
 	 */
 
 	protected Group getRoot() {
@@ -424,7 +437,7 @@ public abstract class LevelParent{
 	/**
 	 * returns the current number of enemies in enemyunits list.
 	 * used to determine whether a new enemy should spawn or not.
-	 * @return
+	 * @return  size of list enemyunits.
 	 */
 
 	protected int getCurrentNumberOfEnemies() {
@@ -433,7 +446,7 @@ public abstract class LevelParent{
 
 	/**
 	 * adds a new enemy to enemyunits list and scene.
-	 * @param enemy
+	 * @param enemy enemy to be added to the scene.
 	 */
 
 	protected void addEnemyUnit(ActiveActorDestructible enemy) {
@@ -444,7 +457,7 @@ public abstract class LevelParent{
 	/**
 	 * returns enemy maximum position value.
 	 * used in calculations for bounds of the enemy to spawn.
-	 * @return
+	 * @return a maximum value for a y position for enemy to spawn.
 	 */
 
 	protected double getEnemyMaximumYPosition() {
@@ -454,7 +467,7 @@ public abstract class LevelParent{
 	/**
 	 * returns width of the screen.
 	 * used in various levels when spawning enemy planes to determine its initial x position.
-	 * @return
+	 * @return value of the width of the stage.
 	 */
 
 	protected double getScreenWidth() {
@@ -464,7 +477,7 @@ public abstract class LevelParent{
 	/**
 	 * returns height of the screen.
 	 * used in various levels when spawning enemy planes to determine its initial y position.
-	 * @return
+	 * @return value of the height if the stage.
 	 */
 
 	protected double getScreenHeight() {
@@ -474,7 +487,7 @@ public abstract class LevelParent{
 	/**
 	 * returns user state.
 	 * used when determining if a user loses the game.
-	 * @return
+	 * @return boolean value of user isdestroyed variable.
 	 */
 
 	protected boolean userIsDestroyed() {

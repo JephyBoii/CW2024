@@ -20,9 +20,9 @@ public class HeartDisplay {
 
 	/**
 	 * instantiates the image container and image with the image name, its dimensions and various properties of the image.
-	 * @param xPosition
-	 * @param yPosition
-	 * @param heartsToDisplay
+	 * @param xPosition x position of the heart display relative to the scene.
+	 * @param yPosition y position of the heart display relative to the scene.
+	 * @param heartsToDisplay number of hearts to display, reflects player health in a level.
 	 */
 	
 	public HeartDisplay(double xPosition, double yPosition, int heartsToDisplay) {
@@ -68,7 +68,7 @@ public class HeartDisplay {
 
 	/**
 	 * returns the container. used in levelview.java when displaying hearts.
-	 * @return
+	 * @return the container of the heart display.
 	 */
 	
 	public HBox getContainer() {
