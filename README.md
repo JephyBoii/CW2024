@@ -13,6 +13,10 @@ in my refafactored version, numerous additions were implemented and various aspe
 3. find and select the Main.java class
 4. run it
 
+notes:
+javaFX and FXML are required to run the program.
+in order to run the test files, add the tryJunit folder as a driectory for dependencies.
+
 ## implemented and working properly
 
 ### improved movement and shooting + health carry over
