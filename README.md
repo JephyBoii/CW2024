@@ -16,7 +16,7 @@ in my refafactored version, many, if not all, bugs were properly addressed and t
 
 notes:
 javaFX and FXML are required to run the program.
-in order to run the test files, add the tryJunit folder as a driectory for dependencies.
+in order to run the test files, add the tryJunit folder as a driectory for dependencies and set as test resource folder.
 
 ## implemented and working properly
 
@@ -245,4 +245,4 @@ Apparently all the hitboxes/sizes of the actual images were much larger than wha
 
 error when deploying project through maven. no fix.
 
-JUnit testing was unbelieveably tiring and tedious, I encountered many errors such as failing to initialize graphics and much much more relating to testing on a javaFX project. eventually, through the implementation of testFX, i was able to successfully implement test cases... to some extent. the tests do work; they pass and fail when they should. just as i finished writing this, the junit tests no longer work. cause: unknown. nothing has been changed.
+JUnit testing was unbelieveably tiring and tedious, I encountered many errors such as failing to initialize graphics and much much more relating to testing on a javaFX project. eventually, through the implementation of testFX, i was able to successfully implement test cases... to some extent. the tests do work; they pass and fail when they should.
