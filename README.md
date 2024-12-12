@@ -3,8 +3,9 @@ github repository link: https://github.com/JephyBoii/CW2024
 
 ## introduction and project description
 
+the main task is to refactor a game's source code, which initially was not runnable and had a lot of bugs and errors on launch and during runtime.
 the game involves moving up and down on the left side of the screen with enemies spawning on the right side of the screen.
-in my refafactored version, numerous additions were implemented and various aspects were modified or completely changed.
+in my refafactored version, many, if not all, bugs were properly addressed and taken care of, numerous additions were implemented and various aspects were modified or completely changed.
 
 ## compilation inctructions
 
@@ -20,25 +21,38 @@ in order to run the test files, add the tryJunit folder as a driectory for depen
 ## implemented and working properly
 
 ### improved movement and shooting + health carry over
-addition of left and right movement and improved input reading, although not perfect. [LevelParent.java: 122-136, UserPlane.java: 25-38, 55-65]
-change of shooting system, now fires bursts of 2 bullets at a time and the ability to hold down shoot button. [LevelParent.java: 142-161]
-health correctly carries over to the next level. [Controller.java: 34, 38]
+addition of left and right movement and improved input reading, although not perfect [LevelParent.java: 122-136, UserPlane.java: 25-38, 55-65].
+change of shooting system, now fires bursts of 2 bullets at a time and the ability to hold down shoot button [LevelParent.java: 142-161].
+health correctly carries over to the next level [Controller.java: 34, 38].
+these features were implemented because movement felt very limited and unreponsive; unneccessarily tedious to properly traverse the screen and a lmited y axis movement gave the player less options to dodge enemy fire.
+hold-to-shoot is always favoured in games where single actions need to be repeatedly done in rapid succession. spamming spacebar to shoot was simply painful especially in boss levels where a boss can have up to 80hp.
+the burst pattern of the user fire was done just because it looked and also provided some level of challenge as it put the player's aim to the test.
+health carrying over was supposed to be a prerequisite to future implementation of healing and a score system, but was kept for added difficulty.
 
 ### new listener interfaces
-implemented new listener interfaces between controller, levelparent and menuscreen classes. [LevelParent.java: 16-18, MenuScreen.java: 11-13, Controller.java: 29, 30, 39, 47, 63]
-correctly and appropriately sends needed data for game to progress. [LevelOne.java, LevelOneTwo.java, LevelTwo.java, LevelTwoTwo.java]
+implemented new listener interfaces between controller, levelparent and menuscreen classes [LevelParent.java: 16-18, MenuScreen.java: 11-13, Controller.java: 29, 30, 39, 47, 63].
+correctly and appropriately sends needed data for game to progress [LevelOne.java, LevelOneTwo.java, LevelTwo.java, LevelTwoTwo.java].
+the original observer interface was depreceated since java 9 so it seemed obvious to try to find or make a replacement.
+the observer interface lacked specification of which listening and listened classes should interact and communicate for any observer and observable class.
+my listener interface makes use of in-class interfaces and set listener classes as such within those listened classes.
 
 ### main menu screen and game over screen
-implemented a main menu screen upon launch and an ending screen depending on user win or loss. [MenuScreen.java, Controller.java: 28-30]
-correctly takes the player to the first level or exits the program. [MenuScreen.java: 38-45]
+implemented a main menu screen upon launch and an ending screen depending on user win or loss [MenuScreen.java, Controller.java: 28-30].
+correctly takes the player to the first level or exits the program [MenuScreen.java: 38-45].
+traditionally a game should take the player to a main menu before the game starts to give the player some time to prepare.
+the game over screen, which could display a win or lose message, gives the player the oppurtunity to restart the game or exit the game, classic options for a game.
 
 ### new stage level + new enemy type
-new level following first level with a new enemy which shoots different types of bullets and have different health. [LevelOneTwo.java, EnemyPlaneTwo.java, EnemyProjectileTwo.java]
-also displays a new background. [LevelOneTwo.java: 5]
+new level following first level with a new enemy which shoots different types of bullets and have different health [LevelOneTwo.java, EnemyPlaneTwo.java, EnemyProjectileTwo.java].
+also displays a new background [LevelOneTwo.java: 5].
+a game wouldnt be very fun if it ended too quickly or had only one type of enemy.
+a new stage gives the player new enemies with a different look, feel and challenge.
 
 ### new boss level + new boss type
-new level following the inital boss level with a new boss which shoots different type of bullet and has different health and mechnanic. [LevelTwoTwo.java, BossTwo.java, BossProjectileTwo.java]
-spawns minions in the fight. [LevelTwoTwo.java: 38-50]
+new level following the initial boss level with a new boss which shoots different type of bullet and has different health and mechnanic [LevelTwoTwo.java, BossTwo.java, BossProjectileTwo.java].
+spawns minions in the fight [LevelTwoTwo.java: 38-50].
+to test the capability of a player, i employed the toughest challnge yet: facing a boss with a new pattern *and* facing previous enemies simultaneously.
+being able to surpass this challenge leaves the player satisfied with the game upon completion.
 
 ## implemented but not working properly
 
@@ -227,4 +241,8 @@ Some functions would be repeatedly called when they were only supposed to be cal
 
 In level two, the boss shield would not be properly displayed as there was nothing relating displaying the shield in level view to the boss needing the shield to be activated. to fix this, I overrode the updatelevelview() function in level two to check when the boss needed the shield to be active and called the showShield() function in its levelview.
 
-Apparently all the hitboxes/sizes of teh actual images were much larger than what we see in game because of transparent elemnts of those imaages. to fix this, i simply replaced every image, taking into account the transparent parts and scaling everything properly.
+Apparently all the hitboxes/sizes of the actual images were much larger than what we see in game because of transparent elemnts of those imaages. to fix this, i simply replaced every image, taking into account the transparent parts and scaling everything properly.
+
+error when deploying project through maven. no fix.
+
+JUnit testing was unbelieveably tiring and tedious, I encountered many errors such as failing to initialize graphics and much much more relating to testing on a javaFX project. eventually, through the implementation of testFX, i was able to successfully implement test cases... to some extent. the tests do work; they pass and fail when they should. just as i finished writing this, the junit tests no longer work. cause: unknown. nothing has been changed.
