@@ -100,7 +100,7 @@ a new stage level which displays a new background image and spawns new enemies.
 has a different spawn pattern and pass requirement.
 
 ### 4. LevelTwoTwo.java
-a new boss level which displays a new basckground image and spawns a new boss.
+a new boss level which displays a new background image and spawns a new boss.
 also spawns enemies.
 
 ### 5. EnemyPlaneTwo.java
@@ -112,7 +112,7 @@ new type of enemy projectile used by the new enemy.
 has different velocity value and movement pattern, starting slow before accelerating rapidly.
 
 ### 7. BossTwo.java
-new type of boss with different health, speed and mechanic.
+new type of boss with different health, speed and mechanics.
 shoots different bullets.
 
 ### 8. BossProjectileTwo.java
